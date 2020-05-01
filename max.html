@@ -2,36 +2,51 @@
 <html>
     <head>
         <title>террария</title>
+        <style>
+            #terr_dewscription {
+                color: blue;
+            }
+            .c1 {
+                background-color: yellow;
+                text-align: center;
+                font-size: 18pt;
+                color: red;
+            }
+            .c2 {
+                text-align: left;
+                color: green;
+                background-color:chartreuse;
+            }
+            .c3 {
+                color:yellowgreen ;
+            }
+            div {
+                // border: 12px solid red ;
+            }
+
+        </style>
     </head>
     <body>
-        <div style="border: 10px solid white;">
-            <div style="background-color: red; padding: 10px;">
-                <div>
-                    <div style="color: green;">
-                        <div style="font-size: 35pt">
-                            <p>
-                                террария - это лутсчая игра в мире.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <p>
-                        здесь есть много разных боссов.
-                        <br/>
-                        вот один из них:
-                    </p>
-                </div>
-            </div>
-
-            <div style="background-color: purple">
-                <img src='img/moon_lord.jpg' alt="Лунный Лорд - финальный босс террарии"/>
-            </div>
+        <div class="c1">
+            <p id="terr_dewscription" class="c3 c1 ">
+                террария - это лутсчая игра в мире.
+            </p>
         </div>
-        <div style="border: 40pt dotted red;margin: 120px;padding: 50pt;">
+        <br/>
+        <div  class="c2">
+            <p>
+                здесь есть много разных боссов.
+                <br/>
+                вот один из них:
+            </p>
+        </div>
+        <br/>
+        <img src='img/moon_lord.jpg' alt="Лунный Лорд - финальный босс террарии"/>
+        <div class="c3">
             <p>
                 есть один очень лёгкий босс - Глаз Ктулху
             </p>
+            <img src='img/eye.jpg' alt="глаз Ктулху - один из самых лёгких боссов в террарии"
         </div>
     </body>
 </html>
