@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title> Пароооооооооооооооль!!!</title>
+        <title>тест</title>
     </head>
     <body>
         <p> <a href="max.html" target="_blank" onclick="return false;">
@@ -10,7 +10,28 @@
         <p> <a href="max.html" target="_blank" onclick="alert('интересные факты идут к вам!');">
                 интересные факты про террарию</a>
         </p>
+        <input type="button" value="test alilyya" onclick="хахалилуя();"/>
+        <div id="test_alilyya"></div>
         <script>
+            var counter = 0;
+            function хахалилуя() {
+                counter = counter*2 + 1;
+
+                if (counter > 1026) {
+                    alert("ТЫ что, идиот?  Не трать мою память! Она мне ещё нужна на игры!!!");
+                    return false;
+                }
+
+                var el = document.getElementById("test_alilyya");
+                var current_inner_html = el.innerHTML + el.innerHTML;
+                var counter_text = counter + " раз <br>"
+                el.innerHTML = counter_text + current_inner_html + " алилуя алила хахахахахахахахахахахахаха под кнопкой нахожусь я<br>";
+            }
         </script>
+
+
+
+
+
     </body>
 </html>
