@@ -4,24 +4,25 @@
         <title>
             что мне нужно сделать, чтоб пройти террарию
         </title>
-        <style>
-            input[type="button"] {
-                background-color: lawngreen;
-            }
-            .button {
-                background-color: lawngreen;
-            }
-        </style>
-    </head>
-    <body>
-        <p>
-            прохождение террарии
-        </p>
-        <input type="text" value="напишите то, что должно быть в следующем пункте" onclick="this.value ='' "/>
-        <div class="button">
-            <div>
-                <input type="button" value="добавить"/>
-            </div>
-        </div>
-    </body>
+    <style>
+        input[type="button"] {
+            background-color: lawngreen;
+        }
+        .button {
+            background-color: lawngreen;
+        }
+    </style>
+</head>
+<body>
+    <div id="list">
+        что мне нужно сделать, чтобы пройти террарию
+    </div>
+    <input type="text" value="напишите то, что должно быть в следующем пункте" onclick="this.value = ''"/>
+    <input type="button" value="добавить" class="button"/>
+    <script>
+        var newItem = document.createElement("div");
+        newItem.innerHTML = "Якубовский Максим";
+        document.getElementById("list").appendChild(newItem);
+    </script>
+</body>
 </html>

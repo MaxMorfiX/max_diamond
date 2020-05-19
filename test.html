@@ -2,6 +2,13 @@
 <html>
     <head>
         <title>тест</title>
+        <script>
+            function addItem() {
+                var newItem = document.createElement("div");
+                newItem.innerHTML = "тест всЄ хјрјшо проверка нормальный";
+                document.getElementById("list").appendChild(newItem);
+            }
+        </script>
     </head>
     <body>
         <p> <a href="max.html" target="_blank" onclick="return false;">
@@ -15,7 +22,7 @@
         <script>
             var counter = 0;
             function хахалилу€() {
-                counter = counter*2 + 1;
+                counter = counter * 2 + 1;
 
                 if (counter > 1026) {
                     alert("“џ что, идиот?  Ќе трать мою пам€ть! ќна мне ещЄ нужна на игры!!!");
@@ -28,6 +35,12 @@
                 el.innerHTML = counter_text + current_inner_html + " алилу€ алила хахахахахахахахахахахахаха под кнопкой нахожусь €<br>";
             }
         </script>
+
+
+        <div id="list" onclick="addItem();">
+            тест покамолка
+        </div>
+
 
 
 
