@@ -11,26 +11,46 @@
             .button {
                 background-color: lawngreen;
             }
+            #box { width: 325px; }
         </style>
     </head>
     <body>
-        <div id="list">
+        <div>
             что мне нужно сделать, чтобы пройти террарию
         </div>
-        <input type="text" value="напишите то, что должно быть в следующем пункте" onclick="this.value = ''" id="box"/>
+        <input id="box" type="text" placeholder="напишите то, что должно быть в следующем пункте"/>
         <input type="button" value="добавить" class="button" onclick="новыйпункт();"/>
+        <input type="button" value="удалить все пункты" class="button" onclick="deleteList();"/>
         <div id="lost">
-
         </div>
         <script>
             function новыйпункт() {
                 var newItem = document.createElement("div");
                 newItem.innerHTML = document.getElementById("box").value;
-                newItem.onclick = удалитьпункт;
+                newItem.onclick = removeItem;
                 document.getElementById("lost").appendChild(newItem);
+                savelist();
             }
-            function удалитьпункт() {
+            function removeItem() {
                 document.getElementById("lost").removeChild(this);
+                savelist();
+            }
+            function savelist() {
+                localStorage.storedList = document.getElementById("lost").innerHTML;
+            }
+            function loadList() {
+                document.getElementById("lost").innerHTML = localStorage.storedList;
+                var list = document.getElementById("lost");
+                for (var i = 0; i < list.children.length; i++) {
+                    list.children[i].onclick = removeItem;
+                }
+            }
+            function deleteList() {
+                localStorage.storedList = "";
+                loadList();
+            }
+            if (localStorage.storedList) {
+                loadList();
             }
         </script>
     </body>
