@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            интересная (или не очень) игра
+        </title>
+        <style>
+            #board {
+                border: 10px black;
+                background-color: gray;
+                height: 350px;
+                width: 650px;
+            }
+            .character {
+                background-color: blue;
+                width: 120px;
+                height: 120px;
+                padding: 10px;
+                margin: 10px;
+                float:  right ;
+            }
+            .hidden {
+                display: none;
+            }
+            .visible {
+                display: block;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="button">
+            <input type="button" value="старт" onclick="startGame();"/>
+        </div>
+        <div id="board">
+            <div class="character">1</div>
+            <div class="character">2</div>
+            <div class="character">3</div>
+            <div class="character">4</div>
+            <div class="character">5</div>
+            <div class="character">6</div>
+        </div>
+        <script>
+            var timer = null;
+            function startGame() {
+                if (!timer) {
+                    gameLoop();
+                }
+            }
+            var loops = 0;
+            function gameLoop() {
+                loops++;
+                if (loops < 12) {
+                    timer = setTimeout(gameLoop, 3000);
+                } else {
+                    timer = null;
+                    alert("игра закончена!");
+                }
+            }
+        </script>
+    </body>
+</html>
