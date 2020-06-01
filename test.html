@@ -2,21 +2,39 @@
 <html>
     <head>
         <title>тест</title>
+        <style>
+            .hidden {
+                display: none;
+            }
+            .visible {
+                display: block;
+            }
+        </style>
+    </head>
+    <body>        
+        <div>привет</div>
+        <div>пока</div>
+        <div onclick="style = 'display: none;'">если ты нажмЄшь на этот текст, то он, наверное, удалитс€)</div>
+
+        <div id="number">
+        </div>
         <script>
-            function addItem() {
-                var newItem = document.createElement("div");
-                newItem.innerHTML = "тест всЄ хјрјшо проверка нормальный";
-                document.getElementById("list").appendChild(newItem);
+            updateCount();
+            var count = 0;
+            function updateCount() {
+                count = count + 1;
+                document.getElementById("number").innerHTML = count;
+                setTimeout(updateCount, 10);
             }
         </script>
-    </head>
-    <body>
+
         <p> <a href="max.html" target="_blank" onclick="return false;">
                 интересные факты про террарию</a>
         </p>
         <p> <a href="max.html" target="_blank" onclick="alert('интересные факты идут к вам!');">
                 интересные факты про террарию</a>
         </p>
+
         <input type="button" value="test alilyya" onclick="хахалилу€();"/>
         <div id="test_alilyya"></div>
         <script>
@@ -31,20 +49,21 @@
 
                 var el = document.getElementById("test_alilyya");
                 var current_inner_html = el.innerHTML + el.innerHTML;
-                var counter_text = counter + " раз <br>"
+                var counter_text = counter + " раз <br>";
                 el.innerHTML = counter_text + current_inner_html + " алилу€ алила хахахахахахахахахахахахаха под кнопкой нахожусь €<br>";
             }
         </script>
 
-
         <div id="list" onclick="addItem();">
             тест покамолка
         </div>
-
-
-
-
-
+        <script>
+            function addItem() {
+                var newItem = document.createElement("div");
+                newItem.innerHTML = "тест покамолка всЄ хјрјшо проверка нормальный";
+                document.getElementById("list").appendChild(newItem);
+            }
+        </script>
 
     </body>
 </html>
