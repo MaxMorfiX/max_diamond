@@ -25,36 +25,95 @@
             .visible {
                 display: block;
             }
+            .notNormalSquere {
+                background-color: red;
+                background: url("img/notNormalMan.jpg");
+                background-size: cover;
+            }
         </style>
     </head>
     <body>
         <div id="button">
-            <input type="button" value="старт" onclick="startGame();"/>
+            <input id="start_btn" type="button" value="старт (уровень 0)" onclick="startGame();"/>
         </div>
         <div id="board">
-            <div class="character">1</div>
-            <div class="character">2</div>
-            <div class="character">3</div>
-            <div class="character">4</div>
-            <div class="character">5</div>
-            <div class="character">6</div>
+            <div class="character">синий квадрат</div>
+            <div class="character">синий квадрат</div>
+            <div class="character">синий квадрат</div>
+            <div class="character">синий квадрат</div>
+            <div class="character">синий квадрат</div>
+            <div class="character">синий квадрат</div>
         </div>
         <script>
+            function startGame() {               
+                gameLoop();
+            }
+            var level = 0;
+            var loops = 0;
+            var peopleVisible = false;
+            var score = 0;
+            var timeout = 3000;
+            var f_click_done = false;
             var timer = null;
-            function startGame() {
-                if (!timer) {
-                    gameLoop();
+            function gameLoop() {
+                peopleVisible = !peopleVisible;
+                create();
+                loops++;
+                if (loops < 12 ) {
+                    if (peopleVisible) {
+                        f_click_done = false;
+                        timer = setTimeout(gameLoop, timeout);
+                    } else {
+                        timer = setTimeout(gameLoop, timeout/1.5);
+                    }
+                } else {
+                    if (score > 5) {
+                        level++;
+                        timeout = timeout / 1.5;
+                        console.log('current timeout: ' + timeout);
+                        document.getElementById("start_btn").value = `Старт (уровень ${level})`;
+                    }
+                    alert("игра закончена!");
+                    alert("ты получил " + score + " из 6 баллов. Следующий уровень: " + level);
+
+                    loops = 0;
+                    peopleVisible = false;
+                    score = 0;
                 }
             }
-            var loops = 0;
-            function gameLoop() {
-                loops++;
-                if (loops < 12) {
-                    timer = setTimeout(gameLoop, 3000);
-                } else {
-                    timer = null;
-                    alert("игра закончена!");
+            function create() {
+                var board = document.getElementById("board");
+                var classToSet = peopleVisible ? "character visible" : "character hidden";
+                for(var index = 0; index < 6; index++ ) {
+                    board.children[index].className = classToSet;
+                    board.children[index].innerHTML = "нормальный человек";
+                    board.children[index].onclick = function() {
+                        if (f_click_done) {
+                            return false;
+                        }
+                        f_click_done = true;
+                        score += -2;
+                        console.log("Не попал!");
+                        console.log("Текущицй счёт: " + score);
+                        clearTimeout(timer);
+                        gameLoop();
+                    };
                 }
+
+                var randomNumber = Math.floor(Math.random() * 6);
+                board.children[randomNumber].innerHTML = "ненормальный человек";
+                board.children[randomNumber].onclick = function() {
+                    if (f_click_done) {
+                        return false;
+                    }
+                    f_click_done = true;
+                    score++;
+                    console.log("Попал!");
+                    console.log("Текущицй счёт: " + score);
+                    clearTimeout(timer);
+                    gameLoop();
+                };
+                board.children[randomNumber].className = classToSet + " notNormalSquere";
             }
         </script>
     </body>
