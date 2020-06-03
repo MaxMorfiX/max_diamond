@@ -4,6 +4,9 @@
         <title>
             интересная (или не очень) игра
         </title>
+        <script>
+
+        </script>
         <style>
             #board {
                 border: 10px black;
@@ -12,12 +15,14 @@
                 width: 650px;
             }
             .character {
+                cursor: crosshair;
                 background-color: blue;
                 width: 120px;
                 height: 120px;
                 padding: 10px;
                 margin: 10px;
                 float:  right ;
+                background-size: cover;
             }
             .hidden {
                 display: none;
@@ -27,7 +32,7 @@
             }
             .notNormalSquere {
                 background-color: red;
-                background: url("img/notNormalMan.jpg");
+                background: url("img/notNormalMan.jpg") !important;
                 background-size: cover;
             }
         </style>
@@ -37,15 +42,16 @@
             <input id="start_btn" type="button" value="старт (уровень 0)" onclick="startGame();"/>
         </div>
         <div id="board">
-            <div class="character">синий квадрат</div>
-            <div class="character">синий квадрат</div>
-            <div class="character">синий квадрат</div>
-            <div class="character">синий квадрат</div>
-            <div class="character">синий квадрат</div>
-            <div class="character">синий квадрат</div>
+            <div class="character"></div>
+            <div class="character"></div>
+            <div class="character"></div>
+            <div class="character"></div>
+            <div class="character"></div>
+            <div class="character"></div>
         </div>
         <script>
-            function startGame() {               
+            function startGame() {
+                alert("Убейте Итона!");
                 gameLoop();
             }
             var level = 0;
@@ -55,6 +61,7 @@
             var timeout = 3000;
             var f_click_done = false;
             var timer = null;
+            var used_numbers = [];
             function gameLoop() {
                 peopleVisible = !peopleVisible;
                 create();
@@ -64,12 +71,12 @@
                         f_click_done = false;
                         timer = setTimeout(gameLoop, timeout);
                     } else {
-                        timer = setTimeout(gameLoop, timeout/1.5);
+                        timer = setTimeout(gameLoop, timeout/1.2);
                     }
                 } else {
                     if (score > 5) {
                         level++;
-                        timeout = timeout / 1.5;
+                        timeout = timeout / 1.2;
                         console.log('current timeout: ' + timeout);
                         document.getElementById("start_btn").value = `Старт (уровень ${level})`;
                     }
@@ -81,12 +88,25 @@
                     score = 0;
                 }
             }
+            function get_not_used_number() {
+                var number = Math.floor(Math.random() * 6) + 1;
+                while (used_numbers.indexOf(number) !== -1) {
+                    number = Math.floor(Math.random() * 6) + 1;
+                }
+                used_numbers.push(number);
+                console.log(used_numbers);
+                return number;
+            }
+            
             function create() {
+                used_numbers = [];
                 var board = document.getElementById("board");
                 var classToSet = peopleVisible ? "character visible" : "character hidden";
                 for(var index = 0; index < 6; index++ ) {
+                    var normalNumber = get_not_used_number();
                     board.children[index].className = classToSet;
-                    board.children[index].innerHTML = "нормальный человек";
+                    // board.children[index].innerHTML = "(not Eton)";
+                    board.children[index].style = `background:url("img/normalMan${normalNumber}.jpg")`;
                     board.children[index].onclick = function() {
                         if (f_click_done) {
                             return false;
@@ -101,7 +121,7 @@
                 }
 
                 var randomNumber = Math.floor(Math.random() * 6);
-                board.children[randomNumber].innerHTML = "ненормальный человек";
+                // board.children[randomNumber].innerHTML = "(Eton)";
                 board.children[randomNumber].onclick = function() {
                     if (f_click_done) {
                         return false;
