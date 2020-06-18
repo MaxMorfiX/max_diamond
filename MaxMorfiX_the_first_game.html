@@ -30,9 +30,14 @@
             .visible {
                 display: block;
             }
-            .notNormalSquere {
+            .notNormalSquereLOST {
                 background-color: red;
-                background: url("${modem}/notNormalMan.jpg") !important;
+                background: url("LOST/notNormalMan.jpg") !important;
+                background-size: cover;
+            }
+            .notNormalSquereterraria {
+                background-color: red;
+                background: url("terraria/notNormalMan.jpg") !important;
                 background-size: cover;
             }
         </style>
@@ -41,7 +46,7 @@
         <div>
             <input id="start_btn" type="button" value="старт (уровень 0)" onclick="startGame();"/>
         </div>
-            <input id="mode" type="button" value='${modem}' onclick="mode();"/>
+            <input id="mode" type="button" value="террария" onclick="mode();"/>
         <div id="board">
             <div class="character"></div>
             <div class="character"></div>
@@ -91,11 +96,13 @@
                 }
             }
             function mode() {
-                if (modem = "terraria") {
-                    var modem = LOST;
+                if (modem === "terraria") {
+                    modem = "LOST";
+                    document.getElementById("mode").value = `${LOST})`;
                 }
                 else {
-                    var modem = terraria;
+                    modem = "terraria";
+                    document.getElementById("mode").value = `${террария})`;
                 }
             }
             function get_not_used_number() {
@@ -143,7 +150,7 @@
                     clearTimeout(timer);
                     gameLoop();
                 };
-                board.children[randomNumber].className = classToSet + " notNormalSquere";
+                board.children[randomNumber].className = classToSet + " notNormalSquere${modem}";
             }
         </script>
     </body>
