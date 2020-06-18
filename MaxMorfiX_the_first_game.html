@@ -46,7 +46,7 @@
         <div>
             <input id="start_btn" type="button" value="סעאנע (ףנמגוםü 0)" onclick="startGame();"/>
         </div>
-            <input id="mode" type="button" value="עוננאנטÿ" onclick="mode();"/>
+        <input id="mode" type="button" value="עוננאנטÿ" onclick="mode();"/>
         <div id="board">
             <div class="character"></div>
             <div class="character"></div>
@@ -73,12 +73,12 @@
                 peopleVisible = !peopleVisible;
                 create();
                 loops++;
-                if (loops < 12 ) {
+                if (loops < 12) {
                     if (peopleVisible) {
                         f_click_done = false;
                         timer = setTimeout(gameLoop, timeout);
                     } else {
-                        timer = setTimeout(gameLoop, timeout/1.2);
+                        timer = setTimeout(gameLoop, timeout / 1.2);
                     }
                 } else {
                     if (score > 5) {
@@ -98,12 +98,10 @@
             function mode() {
                 if (modem === "terraria") {
                     modem = "LOST";
-                    document.getElementById("mode").value = `${LOST})`;
-                }
-                else {
+                } else {
                     modem = "terraria";
-                    document.getElementById("mode").value = `${עוננאנטÿ})`;
                 }
+                document.getElementById("mode").value = modem;
             }
             function get_not_used_number() {
                 var number = Math.floor(Math.random() * 6) + 1;
@@ -114,17 +112,17 @@
                 console.log(used_numbers);
                 return number;
             }
-            
+
             function create() {
                 used_numbers = [];
                 var board = document.getElementById("board");
                 var classToSet = peopleVisible ? "character visible" : "character hidden";
-                for(var index = 0; index < 6; index++ ) {
+                for (var index = 0; index < 6; index++) {
                     var normalNumber = get_not_used_number();
                     board.children[index].className = classToSet;
                     // board.children[index].innerHTML = "(not Eton)";
                     board.children[index].style = `background:url("${modem}/normalMan${normalNumber}.jpg")`;
-                    board.children[index].onclick = function() {
+                    board.children[index].onclick = function () {
                         if (f_click_done) {
                             return false;
                         }
@@ -139,7 +137,7 @@
 
                 var randomNumber = Math.floor(Math.random() * 6);
                 // board.children[randomNumber].innerHTML = "(Eton)";
-                board.children[randomNumber].onclick = function() {
+                board.children[randomNumber].onclick = function () {
                     if (f_click_done) {
                         return false;
                     }
@@ -150,7 +148,7 @@
                     clearTimeout(timer);
                     gameLoop();
                 };
-                board.children[randomNumber].className = classToSet + " notNormalSquere${modem}";
+                board.children[randomNumber].className = classToSet + " notNormalSquere" + modem;
             }
         </script>
     </body>
