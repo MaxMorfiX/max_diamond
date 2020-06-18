@@ -32,15 +32,16 @@
             }
             .notNormalSquere {
                 background-color: red;
-                background: url("img/notNormalMan.jpg") !important;
+                background: url("${modem}/notNormalMan.jpg") !important;
                 background-size: cover;
             }
         </style>
     </head>
     <body>
-        <div id="button">
+        <div>
             <input id="start_btn" type="button" value="старт (уровень 0)" onclick="startGame();"/>
         </div>
+            <input id="mode" type="button" value='${modem}' onclick="mode();"/>
         <div id="board">
             <div class="character"></div>
             <div class="character"></div>
@@ -55,6 +56,7 @@
                 gameLoop();
             }
             var level = 0;
+            var modem = "terraria";
             var loops = 0;
             var peopleVisible = false;
             var score = 0;
@@ -88,6 +90,14 @@
                     score = 0;
                 }
             }
+            function mode() {
+                if (modem = "terraria") {
+                    var modem = LOST;
+                }
+                else {
+                    var modem = terraria;
+                }
+            }
             function get_not_used_number() {
                 var number = Math.floor(Math.random() * 6) + 1;
                 while (used_numbers.indexOf(number) !== -1) {
@@ -106,7 +116,7 @@
                     var normalNumber = get_not_used_number();
                     board.children[index].className = classToSet;
                     // board.children[index].innerHTML = "(not Eton)";
-                    board.children[index].style = `background:url("img/normalMan${normalNumber}.jpg")`;
+                    board.children[index].style = `background:url("${modem}/normalMan${normalNumber}.jpg")`;
                     board.children[index].onclick = function() {
                         if (f_click_done) {
                             return false;
