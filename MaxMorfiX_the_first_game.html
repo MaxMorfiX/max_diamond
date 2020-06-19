@@ -57,7 +57,11 @@
         </div>
         <script>
             function startGame() {
+                if (modem === "terraria") {
+                alert("Убейте финального босса террарии!");
+                } else {
                 alert("Убейте Итона!");
+                }
                 gameLoop();
             }
             var level = 0;
@@ -87,9 +91,7 @@
                         console.log('current timeout: ' + timeout);
                         document.getElementById("start_btn").value = `Старт (уровень ${level})`;
                     }
-                    alert("игра закончена!");
-                    alert("ты получил " + score + " из 6 баллов. Следующий уровень: " + level);
-
+                    alert("Игра закончена! " + "Ты получил(а) " + score + " из 6 баллов. Следующий уровень: " + level);
                     loops = 0;
                     peopleVisible = false;
                     score = 0;
