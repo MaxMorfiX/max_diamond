@@ -58,12 +58,18 @@
         <script>
             function startGame() {
                 if (modem === "terraria") {
-                alert("Убейте финального босса террарии!");
+                    alert("Убейте финального босса террарии!");
                 } else {
-                alert("Убейте Итона!");
+                    alert("Убейте Итона!");
                 }
                 gameLoop();
             }
+            var srednye_chislo = 0;
+            var sum = 0;
+            var time_spent = 0;
+            var times = [];
+            var start_time = 0;
+            var end_time = 0;
             var level = 0;
             var modem = "terraria";
             var loops = 0;
@@ -80,6 +86,7 @@
                 if (loops < 12) {
                     if (peopleVisible) {
                         f_click_done = false;
+                        start_time = new Date();
                         timer = setTimeout(gameLoop, timeout);
                     } else {
                         timer = setTimeout(gameLoop, timeout / 1.2);
@@ -91,7 +98,14 @@
                         console.log('current timeout: ' + timeout);
                         document.getElementById("start_btn").value = `Старт (уровень ${level})`;
                     }
-                    alert("Игра закончена! " + "Ты получил(а) " + score + " из 6 баллов. Следующий уровень: " + level);
+                    for (var i = 0; i < times.length; i++) {
+                        times[i];
+                    }
+                    for (var i = 0; i < times.length; i++) {
+                        sum = sum + times[i];
+                        srednye_chislo = sum / times.length;
+                    }
+                    alert("Игра закончена! " + "Ты получил(а) " + score + " из 6 баллов. Следующий уровень: " + level + ". Средняя скорость твоего нажатия - " + srednye_chislo + " сек.");
                     loops = 0;
                     peopleVisible = false;
                     score = 0;
@@ -138,7 +152,7 @@
                 }
 
                 var randomNumber = Math.floor(Math.random() * 6);
-                // board.children[randomNumber].innerHTML = "(Eton)";
+                //board.children[randomNumber].innerHTML = "(Eton)";
                 board.children[randomNumber].onclick = function () {
                     if (f_click_done) {
                         return false;
@@ -146,9 +160,13 @@
                     f_click_done = true;
                     score++;
                     console.log("Попал!");
+                    end_time = new Date();
+                    time_spent = end_time - start_time;
+                    times.push(time_spent / 1000);
                     console.log("Текущицй счёт: " + score);
                     clearTimeout(timer);
                     gameLoop();
+
                 };
                 board.children[randomNumber].className = classToSet + " notNormalSquere" + modem;
             }
