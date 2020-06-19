@@ -99,9 +99,6 @@
                         document.getElementById("start_btn").value = `Старт (уровень ${level})`;
                     }
                     for (var i = 0; i < times.length; i++) {
-                        times[i];
-                    }
-                    for (var i = 0; i < times.length; i++) {
                         sum = sum + times[i];
                         srednye_chislo = sum / times.length;
                     }
@@ -152,7 +149,7 @@
                 }
 
                 var randomNumber = Math.floor(Math.random() * 6);
-                //board.children[randomNumber].innerHTML = "(Eton)";
+                // board.children[randomNumber].innerHTML = "(Eton)";
                 board.children[randomNumber].onclick = function () {
                     if (f_click_done) {
                         return false;
