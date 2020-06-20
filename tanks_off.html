@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>tanks_off</title>
+        <style>
+            .players_choose_button {
+                width: 100%;
+                height: 225px;
+                display: block
+            }
+            .field {
+                width:  95%;
+                height: 630px;
+                background-color: #00ffff;
+                margin: 30px;
+                display: none;
+                border-color: blueviolet;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div>
+            <input id="players_choose_button_2" class="players_choose_button" type="button" value="2 players" style="background-color:greenyellow" onclick="start_game(2);" >
+            <input id="players_choose_button_3" class="players_choose_button" type="button" value="3 players" style="background-color:yellow"      onclick="start_game(3);" >
+            <input id="players_choose_button_4" class="players_choose_button" type="button" value="4 players" style="background-color:red"         onclick="start_game(4);" >
+        </div>
+        <div id="field" class="field">
+        </div>
+
+        <script>
+            function start_game(players) {
+                console.log("игра началась с " + players + " игроками");
+                document.getElementById("players_choose_button_2").style = "display: none";
+                document.getElementById("players_choose_button_3").style = "display: none";
+                document.getElementById("players_choose_button_4").style = "display: none";
+                document.getElementById("field").style = "display: block";
+            }
+        </script>
+
+    </body>
+</html>
