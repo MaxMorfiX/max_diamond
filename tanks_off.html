@@ -16,6 +16,11 @@
                 display: none;
                 border-color: blueviolet;
             }
+            .player {
+                width: 25px;
+                height: 35px;
+                display: none;
+            }
         </style>
     </head>
     <body>
@@ -26,16 +31,78 @@
             <input id="players_choose_button_4" class="players_choose_button" type="button" value="4 players" style="background-color:red"         onclick="start_game(4);" >
         </div>
         <div id="field" class="field">
-        </div>
 
+
+            <div id="player1" class="player">
+            </div>
+
+            <div id="player2" class="player">
+            </div>
+
+            <div id="player3" class="player">
+            </div>
+
+            <div id="player4" class="player">
+            </div>
+
+
+        </div>
         <script>
             function start_game(players) {
                 console.log("игра началась с " + players + " игроками");
-                document.getElementById("players_choose_button_2").style = "display: none";
-                document.getElementById("players_choose_button_3").style = "display: none";
-                document.getElementById("players_choose_button_4").style = "display: none";
+
+                for (var i = 2; i <= 4; i++) {
+                    document.getElementById("players_choose_button_" + i).style = "display: none";
+                }
+
+                for (var i = 1; i <= players; i++) {
+                    var tank = document.getElementById("player" + i);
+                    tank.style = `background:url("tanks_off/${i}.png"); display: block`;
+                }
                 document.getElementById("field").style = "display: block";
             }
+        </script>
+        <script type="text/javascript">
+            function movePlayer(playerNumber) {
+                document.onkeydown = function (event) {
+                    var step = 10;
+                    var posLeft = document.getElementById('player').offsetLeft;
+                    var posTop = document.getElementById('player').offsetTop;
+                    //alert(posLeft + ' ' + posTop);
+
+                    switch (event.keyCode) {
+                        case 37:
+                            //alert('Left key pressed');
+                            if (posLeft <= 0) {
+                                return true;
+                            }
+                            document.getElementById('player').style.left = posLeft - step;
+                            break;
+                        case 38:
+                            //alert('Up key pressed');
+                            if (posTop <= 0) {
+                                return true;
+                            }
+                            document.getElementById('player').style.top = posTop - step;
+                            break;
+                        case 39:
+                            //alert('Right key pressed');
+                            if (posLeft >= 380) {
+                                return true;
+                            }
+                            document.getElementById('player').style.left = posLeft + step;
+                            break;
+                        case 40:
+                            //alert('Down key pressed');
+                            if (posTop >= 380) {
+                                return true;
+                            }
+                            document.getElementById('player').style.top = posTop + step;
+                            break;
+                    }
+                };
+            }
+
         </script>
 
     </body>
