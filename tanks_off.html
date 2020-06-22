@@ -52,36 +52,31 @@
         <script>
             function start_game(players) {
                 document.getElementById("field").style = "display: block";
-                document.getElementById("players_choose_button_2").style = "display: none";
-                document.getElementById("players_choose_button_3").style = "display: none";
-                document.getElementById("players_choose_button_4").style = "display: none";
-                if (players === 2) {
-                    console.log("игра началась с " + 2 + " игроками");
-                    document.getElementById("player1").style = 'display: block; background:url("tanks_off/1.png"); right: 0px';
-                    document.getElementById("player2").style = 'display: block; background:url("tanks_off/2.png"); bottom: 0px';
+                console.log("игра началась с " + players + " игроками");
+
+                for (var i = 2; i <= 4; i++) {
+                    document.getElementById("players_choose_button_" + i).style = "display: none";
                 }
-                if (players === 3) {
-                    console.log("игра началась с " + 3 + " игроками");
-                    document.getElementById("player1").style = 'display: block; background:url("tanks_off/1.png"); right: 0px';
-                    document.getElementById("player2").style = 'display: block; background:url("tanks_off/2.png"); bottom: 0px';
-                    document.getElementById("player3").style = 'display: block; background:url("tanks_off/3.png")';
+
+                for (var i = 1; i <= players; i++) {
+                    var tank = document.getElementById("player" + i);
+                    tank.style = `background:url("tanks_off/${i}.png"); display: block`;
                 }
-                if (players === 4) {
-                    console.log("игра началась с " + 4 + " игроками");
-                    document.getElementById("player1").style = 'display: block; background:url("tanks_off/1.png"); left: 925px;';
-                    document.getElementById("player2").style = 'display: block; background:url("tanks_off/2.png"); bottom: 0px';
-                    document.getElementById("player3").style = 'display: block; background:url("tanks_off/3.png")';
-                    document.getElementById("player4").style = 'display: block; background:url("tanks_off/4.png"); right: 0px; bottom: 0px';
-                }
+
+                document.getElementById("player1").style.left = '925px';
+                document.getElementById("player2").style.bottom = '0px';
+                document.getElementById("player4").style.right = "0px";
+                document.getElementById("player4").style.bottom = "0px";
+
             }
 
             document.onkeydown = function (event) {
-console.log('key pressed');
+                console.log('key pressed');
                 var step = 10;
                 var posLeft = document.getElementById('player1').offsetLeft;
                 var posTop = document.getElementById('player1').offsetTop;
-console.log(posLeft);
-console.log(posTop);
+                console.log(posLeft);
+                console.log(posTop);
                 //alert(posLeft + ' ' + posTop);
 
                 switch (event.keyCode) {
@@ -90,10 +85,10 @@ console.log(posTop);
                         if (posLeft <= 0) {
                             return true;
                         }
-console.log(posLeft - step);
+                        console.log(posLeft - step);
                         document.getElementById('player1').style.left = (posLeft - step) + "px";
-console.log(document.getElementById('player1').offsetLeft);
-console.log(document.getElementById('player1').style.left);
+                        console.log(document.getElementById('player1').offsetLeft);
+                        console.log(document.getElementById('player1').style.left);
 //                        document.getElementById('player1').style.right = 'auto';
                         break;
                     case 38:
@@ -120,125 +115,125 @@ console.log(document.getElementById('player1').style.left);
                 }
             };
 
-/*
-            document.onkeydown = function (event) {
-                var step = 10;
-                var posLeft = document.getElementById('player2').offsetLeft;
-                var posTop = document.getElementById('player2').offsetTop;
-                //alert(posLeft + ' ' + posTop);
+            /*
+             document.onkeydown = function (event) {
+             var step = 10;
+             var posLeft = document.getElementById('player2').offsetLeft;
+             var posTop = document.getElementById('player2').offsetTop;
+             //alert(posLeft + ' ' + posTop);
 
-                switch (event.keyCode) {
-                    case 37:
-                        //alert('Left key pressed');
-                        if (posLeft <= 0) {
-                            return true;
-                        }
-                        document.getElementById('player2').style.left = posLeft - step;
-                        break;
-                    case 38:
-                        //alert('Up key pressed');
-                        if (posTop <= 0) {
-                            return true;
-                        }
-                        document.getElementById('player2').style.top = posTop - step;
-                        break;
-                    case 39:
-                        //alert('Right key pressed');
-                        if (posLeft >= 925) {
-                            return true;
-                        }
-                        document.getElementById('player2').style.left = posLeft + step;
-                        break;
-                    case 40:
-                        //alert('Down key pressed');
-                        if (posTop >= 795) {
-                            return true;
-                        }
-                        document.getElementById('player2').style.top = posTop + step;
-                        break;
-                }
-            };
-
-
-
-            document.onkeydown = function (event) {
-                var step = 10;
-                var posLeft = document.getElementById('player3').offsetLeft;
-                var posTop = document.getElementById('player3').offsetTop;
-                //alert(posLeft + ' ' + posTop);
-
-                switch (event.keyCode) {
-                    case 37:
-                        //alert('Left key pressed');
-                        if (posLeft <= 0) {
-                            return true;
-                        }
-                        document.getElementById('player3').style.left = posLeft - step;
-                        break;
-                    case 38:
-                        //alert('Up key pressed');
-                        if (posTop <= 0) {
-                            return true;
-                        }
-                        document.getElementById('player3').style.top = posTop - step;
-                        break;
-                    case 39:
-                        //alert('Right key pressed');
-                        if (posLeft >= 925) {
-                            return true;
-                        }
-                        document.getElementById('player3').style.left = posLeft + step;
-                        break;
-                    case 40:
-                        //alert('Down key pressed');
-                        if (posTop >= 795) {
-                            return true;
-                        }
-                        document.getElementById('player3').style.top = posTop + step;
-                        break;
-                }
-            };
+             switch (event.keyCode) {
+             case 37:
+             //alert('Left key pressed');
+             if (posLeft <= 0) {
+             return true;
+             }
+             document.getElementById('player2').style.left = posLeft - step;
+             break;
+             case 38:
+             //alert('Up key pressed');
+             if (posTop <= 0) {
+             return true;
+             }
+             document.getElementById('player2').style.top = posTop - step;
+             break;
+             case 39:
+             //alert('Right key pressed');
+             if (posLeft >= 925) {
+             return true;
+             }
+             document.getElementById('player2').style.left = posLeft + step;
+             break;
+             case 40:
+             //alert('Down key pressed');
+             if (posTop >= 795) {
+             return true;
+             }
+             document.getElementById('player2').style.top = posTop + step;
+             break;
+             }
+             };
 
 
 
-            document.onkeydown = function (event) {
-                var step = 10;
-                var posLeft = document.getElementById('player4').offsetLeft;
-                var posTop = document.getElementById('player4').offsetTop;
-                //alert(posLeft + ' ' + posTop);
+             document.onkeydown = function (event) {
+             var step = 10;
+             var posLeft = document.getElementById('player3').offsetLeft;
+             var posTop = document.getElementById('player3').offsetTop;
+             //alert(posLeft + ' ' + posTop);
 
-                switch (event.keyCode) {
-                    case 37:
-                        //alert('Left key pressed');
-                        if (posLeft <= 0) {
-                            return true;
-                        }
-                        document.getElementById('player4').style.left = posLeft - step;
-                        break;
-                    case 38:
-                        //alert('Up key pressed');
-                        if (posTop <= 0) {
-                            return true;
-                        }
-                        document.getElementById('player4').style.top = posTop - step;
-                        break;
-                    case 39:
-                        //alert('Right key pressed');
-                        if (posLeft >= 925) {
-                            return true;
-                        }
-                        document.getElementById('player4').style.left = posLeft + step;
-                        break;
-                    case 40:
-                        //alert('Down key pressed');
-                        if (posTop >= 795) {
-                            return true;
-                        }
-                        document.getElementById('player4').style.top = posTop + step;
-                        break;
-                }
-            };
-*/
+             switch (event.keyCode) {
+             case 37:
+             //alert('Left key pressed');
+             if (posLeft <= 0) {
+             return true;
+             }
+             document.getElementById('player3').style.left = posLeft - step;
+             break;
+             case 38:
+             //alert('Up key pressed');
+             if (posTop <= 0) {
+             return true;
+             }
+             document.getElementById('player3').style.top = posTop - step;
+             break;
+             case 39:
+             //alert('Right key pressed');
+             if (posLeft >= 925) {
+             return true;
+             }
+             document.getElementById('player3').style.left = posLeft + step;
+             break;
+             case 40:
+             //alert('Down key pressed');
+             if (posTop >= 795) {
+             return true;
+             }
+             document.getElementById('player3').style.top = posTop + step;
+             break;
+             }
+             };
+
+
+
+             document.onkeydown = function (event) {
+             var step = 10;
+             var posLeft = document.getElementById('player4').offsetLeft;
+             var posTop = document.getElementById('player4').offsetTop;
+             //alert(posLeft + ' ' + posTop);
+
+             switch (event.keyCode) {
+             case 37:
+             //alert('Left key pressed');
+             if (posLeft <= 0) {
+             return true;
+             }
+             document.getElementById('player4').style.left = posLeft - step;
+             break;
+             case 38:
+             //alert('Up key pressed');
+             if (posTop <= 0) {
+             return true;
+             }
+             document.getElementById('player4').style.top = posTop - step;
+             break;
+             case 39:
+             //alert('Right key pressed');
+             if (posLeft >= 925) {
+             return true;
+             }
+             document.getElementById('player4').style.left = posLeft + step;
+             break;
+             case 40:
+             //alert('Down key pressed');
+             if (posTop >= 795) {
+             return true;
+             }
+             document.getElementById('player4').style.top = posTop + step;
+             break;
+             }
+             };
+             */
 
         </script>
 
