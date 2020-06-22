@@ -79,6 +79,7 @@
                 console.log(posTop);
                 //alert(posLeft + ' ' + posTop);
 
+                var player_name = "player1";
                 switch (event.keyCode) {
                     case 37:
                         //alert('Left key pressed');
@@ -86,9 +87,9 @@
                             return true;
                         }
                         console.log(posLeft - step);
-                        document.getElementById('player1').style.left = (posLeft - step) + "px";
-                        console.log(document.getElementById('player1').offsetLeft);
-                        console.log(document.getElementById('player1').style.left);
+                        document.getElementById(player_name).style.left = (posLeft - step) + "px";
+                        console.log(document.getElementById(player_name).offsetLeft);
+                        console.log(document.getElementById(player_name).style.left);
 //                        document.getElementById('player1').style.right = 'auto';
                         break;
                     case 38:
@@ -96,21 +97,21 @@
                         if (posTop <= 0) {
                             return true;
                         }
-                        document.getElementById('player1').style.top = (posTop - step) + "px";
+                        document.getElementById(player_name).style.top = (posTop - step) + "px";
                         break;
                     case 39:
                         //alert('Right key pressed');
                         if (posLeft >= 925) {
                             return true;
                         }
-                        document.getElementById('player1').style.left = (posLeft + step) + "px";
+                        document.getElementById(player_name).style.left = (posLeft + step) + "px";
                         break;
                     case 40:
                         //alert('Down key pressed');
                         if (posTop >= 795) {
                             return true;
                         }
-                        document.getElementById('player1').style.top = (posTop + step) + "px";
+                        document.getElementById(player_name).style.top = (posTop + step) + "px";
                         break;
                 }
             };
