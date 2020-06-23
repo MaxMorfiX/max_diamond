@@ -1,0 +1,66 @@
+<html>
+    <head>
+        <style>
+            .pool {
+                position: relative;
+                border: 2px solid blue;
+                width: 400px;
+                height: 400px;
+                margin: 50px auto;
+            }
+            .player_style {
+                position: absolute;
+                left: 190px;
+                top: 190px;
+                width: 20px;
+                height: 20px;
+                background-color: red;
+            }
+        </style>
+    </head>
+        <body>
+            <div class="pool">
+                <div id="player" class="player_style"></div>
+            </div>
+            
+            <script type="text/javascript">
+                document.onkeydown = function(event) {
+                    var step = 10;
+                    var posLeft = document.getElementById('player').offsetLeft;
+                    var posTop = document.getElementById('player').offsetTop;
+                    //alert(posLeft + ' ' + posTop);
+
+                    switch (event.keyCode) {
+                       case 37:
+                            //alert('Left key pressed');
+                            if (posLeft <= 0) {
+                                return true;
+                            }
+                           document.getElementById('player').style.left = posLeft - step;
+                          break;
+                       case 38:
+                            //alert('Up key pressed');
+                            if (posTop <= 0) {
+                                return true;
+                            }
+                           document.getElementById('player').style.top = posTop - step;
+                          break;
+                       case 39:
+                            //alert('Right key pressed');
+                            if (posLeft >= 380) {
+                                return true;
+                            }
+                           document.getElementById('player').style.left = posLeft + step;
+                          break;
+                       case 40:
+                            //alert('Down key pressed');
+                            if (posTop >= 380) {
+                                return true;
+                            }
+                           document.getElementById('player').style.top = posTop + step;
+                          break;
+                    }
+                };
+            </script>
+        </body>
+</html>
