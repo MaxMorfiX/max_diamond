@@ -19,9 +19,11 @@
             }
             .player {
                 position: absolute;
-                width: 25px;
+                width: 35px;
                 height: 35px;
                 display: none;
+                background-position: center !important;
+                background-repeat: no-repeat !important;
             }
         </style>
     </head>
@@ -63,7 +65,7 @@
                     tank.style = `background:url("tanks_off/${i}.png"); display: block`;
                 }
 
-                document.getElementById("player1").style.left = '925px';
+                document.getElementById("player1").style.right = '0px';
                 document.getElementById("player2").style.bottom = '0px';
                 document.getElementById("player4").style.right = "0px";
                 document.getElementById("player4").style.bottom = "0px";
