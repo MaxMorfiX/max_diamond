@@ -91,6 +91,7 @@
                         console.log(document.getElementById(player_name).offsetLeft);
                         console.log(document.getElementById(player_name).style.left);
 //                        document.getElementById('player1').style.right = 'auto';
+                        document.getElementById(player_name).style.transform = "rotate(300grad)";
                         break;
                     case 38:
                         //alert('Up key pressed');
@@ -98,6 +99,7 @@
                             return true;
                         }
                         document.getElementById(player_name).style.top = (posTop - step) + "px";
+                        document.getElementById(player_name).style.transform = "rotate(0grad)";
                         break;
                     case 39:
                         //alert('Right key pressed');
@@ -105,7 +107,7 @@
                             return true;
                         }
                         document.getElementById(player_name).style.left = (posLeft + step) + "px";
-                        [window.]document.getElementById("player_name").style.transform: rotate(<100 grad>);
+                        document.getElementById(player_name).style.transform = "rotate(100grad)";
                         break;
                     case 40:
                         //alert('Down key pressed');
@@ -113,6 +115,7 @@
                             return true;
                         };
                         document.getElementById(player_name).style.top = (posTop + step) + "px";
+                        document.getElementById(player_name).style.transform = "rotate(200grad)";
                         break;
                 }
             };
