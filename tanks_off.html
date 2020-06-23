@@ -105,12 +105,13 @@
                             return true;
                         }
                         document.getElementById(player_name).style.left = (posLeft + step) + "px";
+                        [window.]document.getElementById("player_name").style.transform: rotate(<100 grad>);
                         break;
                     case 40:
                         //alert('Down key pressed');
                         if (posTop >= 795) {
                             return true;
-                        }
+                        };
                         document.getElementById(player_name).style.top = (posTop + step) + "px";
                         break;
                 }

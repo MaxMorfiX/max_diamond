@@ -9,24 +9,81 @@
             .visible {
                 display: block;
             }
+            .pool {
+                position: relative;
+                border: 2px solid blue;
+                width: 400px;
+                height: 400px;
+                margin: 50px auto;
+            }
+            .player_style {
+                position: absolute;
+                left: 190px;
+                top: 190px;
+                width: 20px;
+                height: 20px;
+                background-color: red;
+            }
         </style>
     </head>
-    <body>        
+    <body>
+        <div class="pool">
+            <div id="player" class="player_style"></div>
+        </div>
+            <script>
+
+
+
+
+
+
+
+
+
+                document.onkeydown = function(event) {
+                    var step = 10;
+                    var posLeft = document.getElementById('player').offsetLeft;
+                    var posTop = document.getElementById('player').offsetTop;
+                    //alert(posLeft + ' ' + posTop);
+
+                    switch (event.keyCode) {
+                       case 37:
+                            //alert('Left key pressed');
+                            if (posLeft <= 0) {
+                                return true;
+                            }
+                           document.getElementById('player').style.left = posLeft - step;
+                          break;
+                       case 38:
+                            //alert('Up key pressed');
+                            if (posTop <= 0) {
+                                return true;
+                            }
+                           document.getElementById('player').style.top = posTop - step;
+                          break;
+                       case 39:
+                            //alert('Right key pressed');
+                            if (posLeft >= 380) {
+                                return true;
+                            }
+                           document.getElementById('player').style.left = posLeft + step;
+                          break;
+                       case 40:
+                            //alert('Down key pressed');
+                            if (posTop >= 380) {
+                                return true;
+                            }
+                           document.getElementById('player').style.top = posTop + step;
+                          break;
+                    }
+                };
+            </script>
         <div>привет</div>
         <div>пока</div>
         <div onclick="style = 'display: none;'">если ты нажмЄшь на этот текст, то он, наверное, удалитс€)</div>
 
         <div id="number">
         </div>
-        <script>
-            updateCount();
-            var count = 0;
-            function updateCount() {
-                count = count + 1;
-                document.getElementById("number").innerHTML = count;
-                setTimeout(updateCount, 10);
-            }
-        </script>
 
         <p> <a href="max.html" target="_blank" onclick="return false;">
                 интересные факты про террарию</a>
@@ -37,7 +94,24 @@
 
         <input type="button" value="test alilyya" onclick="хахалилу€();"/>
         <div id="test_alilyya"></div>
+
+        <div id="list" onclick="addItem();">
+            тест покамолка
+        </div>
         <script>
+            updateCount();
+            var count = 0;
+            function updateCount() {
+                count = count + 1;
+                document.getElementById("number").innerHTML = count;
+                setTimeout(updateCount, 10);
+            }
+
+
+
+
+
+
             var counter = 0;
             function хахалилу€() {
                 counter = counter * 2 + 1;
@@ -47,23 +121,27 @@
                     return false;
                 }
 
+
+
+
                 var el = document.getElementById("test_alilyya");
                 var current_inner_html = el.innerHTML + el.innerHTML;
                 var counter_text = counter + " раз <br>";
                 el.innerHTML = counter_text + current_inner_html + " алилу€ алила хахахахахахахахахахахахаха под кнопкой нахожусь €<br>";
             }
-        </script>
 
-        <div id="list" onclick="addItem();">
-            тест покамолка
-        </div>
-        <script>
+
+
+
+
+
+
+
             function addItem() {
                 var newItem = document.createElement("div");
                 newItem.innerHTML = "тест покамолка всЄ хјрјшо проверка нормальный";
                 document.getElementById("list").appendChild(newItem);
             }
-        </script>
-
+            </script>
     </body>
 </html>
