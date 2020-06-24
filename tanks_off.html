@@ -25,6 +25,16 @@
                 background-position: center !important;
                 background-repeat: no-repeat !important;
             }
+            
+            .bullet {
+                position: absolute;
+                top: 30px;
+                left: 30px;
+                width: 3px;
+                height: 8px;
+                background: url("tanks_off/bullet.png");
+            }
+
         </style>
     </head>
     <body>
@@ -52,6 +62,24 @@
 
         </div>
         <script>
+            const KEY_L = 76;
+
+            start_game(4); // temp while developing
+
+            function make_bullet(player_name) {
+                var bullet = document.createElement("div");
+                bullet.classList.add("bullet");
+                document.getElementById("field").appendChild(bullet);
+                var tank = document.getElementById(player_name);
+
+                var posLeft = tank.offsetLeft;
+                var posTop = tank.offsetTop;
+
+                bullet.style.top = (posTop + 9) + "px";
+                bullet.style.left = (posLeft + 12) + "px";
+                document.getElementById(player_name).style.transform = "rotate(0grad)";
+            }
+
             function start_game(players) {
                 document.getElementById("field").style = "display: block";
                 console.log("игра началась с " + players + " игроками");
@@ -115,12 +143,18 @@
                         //alert('Down key pressed');
                         if (posTop >= 795) {
                             return true;
-                        };
+                        }
+                        ;
                         document.getElementById(player_name).style.top = (posTop + step) + "px";
                         document.getElementById(player_name).style.transform = "rotate(200grad)";
                         break;
+                    case KEY_L:
+                        console.log('should start a bullet');
+                        make_bullet(player_name);
                 }
             };
+
+
 
             /*
              document.onkeydown = function (event) {
