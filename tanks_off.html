@@ -25,7 +25,7 @@
                 background-position: center !important;
                 background-repeat: no-repeat !important;
             }
-            
+
             .bullet {
                 position: absolute;
                 top: 30px;
@@ -63,6 +63,10 @@
         </div>
         <script>
             const KEY_L = 76;
+            var rotate_tank_1 = top;
+            var rotate_tank_2 = top;
+            var rotate_tank_3 = top;
+            var rotate_tank_4 = top;
 
             start_game(4); // temp while developing
 
@@ -77,8 +81,16 @@
 
                 bullet.style.top = (posTop + 9) + "px";
                 bullet.style.left = (posLeft + 12) + "px";
-                document.getElementById(player_name).style.transform = "rotate(0grad)";
-            }
+
+                if (rotate_tank_1 === top)
+                        document.getElementByClassName(bullet).style.transform = "rotate(0grad)";
+                    for (var i = 0; i === 1;) {
+                        document.getElementByClassName(bullet).style. = "left = 'posTop-10' + px";
+                var posTop = bullet.offsetTop;
+                        if (posTop === 0)
+                            i = 1;
+                    };
+            };
 
             function start_game(players) {
                 document.getElementById("field").style = "display: block";
@@ -99,6 +111,15 @@
                 document.getElementById("player4").style.bottom = "0px";
 
             }
+
+
+
+
+
+
+
+
+
 
             document.onkeydown = function (event) {
                 console.log('key pressed');
@@ -122,6 +143,7 @@
                         console.log(document.getElementById(player_name).style.left);
 //                        document.getElementById('player1').style.right = 'auto';
                         document.getElementById(player_name).style.transform = "rotate(300grad)";
+                        rotate_tank_1 = left;
                         break;
                     case 38:
                         //alert('Up key pressed');
@@ -130,6 +152,7 @@
                         }
                         document.getElementById(player_name).style.top = (posTop - step) + "px";
                         document.getElementById(player_name).style.transform = "rotate(0grad)";
+                        rotate_tank_1 = top;
                         break;
                     case 39:
                         //alert('Right key pressed');
@@ -138,6 +161,7 @@
                         }
                         document.getElementById(player_name).style.left = (posLeft + step) + "px";
                         document.getElementById(player_name).style.transform = "rotate(100grad)";
+                        rotate_tank_1 = right;
                         break;
                     case 40:
                         //alert('Down key pressed');
@@ -147,6 +171,7 @@
                         ;
                         document.getElementById(player_name).style.top = (posTop + step) + "px";
                         document.getElementById(player_name).style.transform = "rotate(200grad)";
+                        rotate_tank_1 = bottom;
                         break;
                     case KEY_L:
                         console.log('should start a bullet');
