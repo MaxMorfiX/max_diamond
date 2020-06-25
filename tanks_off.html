@@ -131,11 +131,16 @@
                 }
                 if (rotate_tank_1 === "left") {
                     document.getElementById("field").lastChild.style.transform = "rotate( -100grad)";
-                    for (var i = 0; i === 1; ) {
-                        var posTop = bullet.offsetTop;
-                        document.getElementByClassName("bullet").style.left = 'posLeft - 10' + "px";
-                        if (posTop === 0)
+                    // надо делать через таймауты, чотбы было видно движение
+                    var i = 0;
+                    while (i < 1) {
+                        console.log('+');
+                        var posLeft = bullet.offsetLeft;
+                        console.log("was " + posLeft + ' and became ' + (posLeft - 10));
+                        document.getElementById("field").lastChild.style.left = (posLeft - 10) + "px";
+                        if (posLeft < 10) {
                             i = 1;
+                        }
                     }
                 }
             }
