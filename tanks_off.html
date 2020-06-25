@@ -67,6 +67,15 @@
             var rotate_tank_2 = "top";
             var rotate_tank_3 = "top";
             var rotate_tank_4 = "top";
+            
+
+            var key_mapping = {
+                KEY_L: {player_name: 'player1', action: 'bullet'},
+                37: {player_name: 'player1', action: 'left'},
+
+                137: {player_name: 'player2', action: 'bullet'},
+                138: {player_name: 'player2', action: 'left'}
+            };
 
             var keys = {};
             function set_key_pressed(code, pressed) {
@@ -192,7 +201,32 @@
                 //alert(posLeft + ' ' + posTop);
                 var player_name = "player1";
 
+/*
+                for (var index in keys) {
+                    if (!keys[index]) {
+                        continue;
+                    }
+
+                    if (!key_mapping[index]) {
+                        continue;
+                    }
+
+                    var key_data = key_mapping[index];
+
+                    switch (key_data.action) {
+                        case "bullet":
+                            make_bullet(key_data.player_name);
+                            break;
+                        case "left":
+                            move_left(key_data.player_name);
+                            break;
+                    }
+
+                }
+        */
+
                 if (keys[37]) {
+
                         //alert('Left key pressed');
                         if (posLeft <= 0) {
                             return true;
