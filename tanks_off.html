@@ -67,6 +67,20 @@
             var rotate_tank_2 = top;
             var rotate_tank_3 = top;
             var rotate_tank_4 = top;
+            var keys = {};
+
+            function set_key_pressed(code, pressed) {
+                keys[code] = pressed;
+                console.log(keys);
+            }
+            
+            document.onkeydown = function (event) {
+                set_key_pressed(event.keyCode, true);
+            };
+
+            document.onkeyup = function (event) {
+                set_key_pressed(event.keyCode, false);
+            };
 
             function start_game(players) {
                 document.getElementById("field").style = "display: block";
@@ -101,7 +115,7 @@
                 bullet.style.top = (posTop + 9) + "px";
                 bullet.style.left = (posLeft + 12) + "px";
 
-                
+
                 if (rotate_tank_1 === "left") {
                     document.getElementById("field").lastChild.style.transform = "rotate( -100grad)";
                     // надо делать через таймауты, чотбы было видно движение
@@ -113,7 +127,7 @@
                         document.getElementById("field").lastChild.style.left = (posLeft + 10) + "px";
                         if (posLeft >= 950) {
                             i = 1;
-//                        document.getElementById("field").lastChild.style = ("display: none");
+//                            document.getElementById("field").lastChild.style = ("display: none");
                         }
                     }
                 }
@@ -128,7 +142,7 @@
                         document.getElementById("field").lastChild.style.left = (posLeft - 10) + "px";
                         if (posLeft < 10) {
                             i = 1;
-//                            document.getElementById("field").lastChild.style = ("display: none");
+//                        document.getElementById("field").lastChild.style = ("display: none");
                         }
                     }
                 }
@@ -167,37 +181,29 @@
 
 
 
+            document.onkeydown___ = function (event) {
+                    var step = 10;
+                    var posLeft = document.getElementById('player1').offsetLeft;
+                    var posTop = document.getElementById('player1').offsetTop;
+                    console.log(posLeft);
+                    console.log(posTop);
+                    //alert(posLeft + ' ' + posTop);
 
-
-
-
-
-
-
-            document.onkeydown = function (event) {
-                console.log('key pressed');
-                var step = 10;
-                var posLeft = document.getElementById('player1').offsetLeft;
-                var posTop = document.getElementById('player1').offsetTop;
-                console.log(posLeft);
-                console.log(posTop);
-                //alert(posLeft + ' ' + posTop);
-
-                var player_name = "player1";
-                switch (event.keyCode) {
-                    case 37:
-                        //alert('Left key pressed');
-                        if (posLeft <= 0) {
-                            return true;
-                        }
-                        console.log(posLeft - step);
-                        document.getElementById(player_name).style.left = (posLeft - step) + "px";
-                        console.log(document.getElementById(player_name).offsetLeft);
-                        console.log(document.getElementById(player_name).style.left);
+                    var player_name = "player1";
+                    switch (event.keyCode) {
+                        case 37:
+                            //alert('Left key pressed');
+                            if (posLeft <= 0) {
+                                return true;
+                            }
+                            console.log(posLeft - step);
+                            document.getElementById(player_name).style.left = (posLeft - step) + "px";
+                            console.log(document.getElementById(player_name).offsetLeft);
+                            console.log(document.getElementById(player_name).style.left);
 //                        document.getElementById('player1').style.right = 'auto';
-                        document.getElementById(player_name).style.transform = "rotate(300grad)";
-                        rotate_tank_1 = "left";
-                        break;
+                            document.getElementById(player_name).style.transform = "rotate(300grad)";
+                            rotate_tank_1 = "left";
+                            break;
                     case 38:
                         //alert('Up key pressed');
                         if (posTop <= 0) {
@@ -229,130 +235,130 @@
                     case KEY_L:
                         console.log('should start a bullet');
                         make_bullet(player_name);
-                }
-            };
+                    }
+                };
 
 
 
-            /*
-             document.onkeydown = function (event) {
-             var step = 10;
-             var posLeft = document.getElementById('player2').offsetLeft;
-             var posTop = document.getElementById('player2').offsetTop;
-             //alert(posLeft + ' ' + posTop);
+                /*
+                 document.onkeydown = function (event) {
+                 var step = 10;
+                 var posLeft = document.getElementById('player2').offsetLeft;
+                 var posTop = document.getElementById('player2').offsetTop;
+                 //alert(posLeft + ' ' + posTop);
 
-             switch (event.keyCode) {
-             case 37:
-             //alert('Left key pressed');
-             if (posLeft <= 0) {
-             return true;
-             }
-             document.getElementById('player2').style.left = posLeft - step;
-             break;
-             case 38:
-             //alert('Up key pressed');
-             if (posTop <= 0) {
-             return true;
-             }
-             document.getElementById('player2').style.top = posTop - step;
-             break;
-             case 39:
-             //alert('Right key pressed');
-             if (posLeft >= 925) {
-             return true;
-             }
-             document.getElementById('player2').style.left = posLeft + step;
-             break;
-             case 40:
-             //alert('Down key pressed');
-             if (posTop >= 795) {
-             return true;
-             }
-             document.getElementById('player2').style.top = posTop + step;
-             break;
-             }
-             };
-
-
-
-             document.onkeydown = function (event) {
-             var step = 10;
-             var posLeft = document.getElementById('player3').offsetLeft;
-             var posTop = document.getElementById('player3').offsetTop;
-             //alert(posLeft + ' ' + posTop);
-
-             switch (event.keyCode) {
-             case 37:
-             //alert('Left key pressed');
-             if (posLeft <= 0) {
-             return true;
-             }
-             document.getElementById('player3').style.left = posLeft - step;
-             break;
-             case 38:
-             //alert('Up key pressed');
-             if (posTop <= 0) {
-             return true;
-             }
-             document.getElementById('player3').style.top = posTop - step;
-             break;
-             case 39:
-             //alert('Right key pressed');
-             if (posLeft >= 925) {
-             return true;
-             }
-             document.getElementById('player3').style.left = posLeft + step;
-             break;
-             case 40:
-             //alert('Down key pressed');
-             if (posTop >= 795) {
-             return true;
-             }
-             document.getElementById('player3').style.top = posTop + step;
-             break;
-             }
-             };
+                 switch (event.keyCode) {
+                 case 37:
+                 //alert('Left key pressed');
+                 if (posLeft <= 0) {
+                 return true;
+                 }
+                 document.getElementById('player2').style.left = posLeft - step;
+                 break;
+                 case 38:
+                 //alert('Up key pressed');
+                 if (posTop <= 0) {
+                 return true;
+                 }
+                 document.getElementById('player2').style.top = posTop - step;
+                 break;
+                 case 39:
+                 //alert('Right key pressed');
+                 if (posLeft >= 925) {
+                 return true;
+                 }
+                 document.getElementById('player2').style.left = posLeft + step;
+                 break;
+                 case 40:
+                 //alert('Down key pressed');
+                 if (posTop >= 795) {
+                 return true;
+                 }
+                 document.getElementById('player2').style.top = posTop + step;
+                 break;
+                 }
+                 };
 
 
 
-             document.onkeydown = function (event) {
-             var step = 10;
-             var posLeft = document.getElementById('player4').offsetLeft;
-             var posTop = document.getElementById('player4').offsetTop;
-             //alert(posLeft + ' ' + posTop);
+                 document.onkeydown = function (event) {
+                 var step = 10;
+                 var posLeft = document.getElementById('player3').offsetLeft;
+                 var posTop = document.getElementById('player3').offsetTop;
+                 //alert(posLeft + ' ' + posTop);
 
-             switch (event.keyCode) {
-             case 37:
-             //alert('Left key pressed');
-             if (posLeft <= 0) {
-             return true;
-             }
-             document.getElementById('player4').style.left = posLeft - step;
-             break;
-             case 38:
-             //alert('Up key pressed');
-             if (posTop <= 0) {
-             return true;
-             }
-             document.getElementById('player4').style.top = posTop - step;
-             break;
-             case 39:
-             //alert('Right key pressed');
-             if (posLeft >= 925) {
-             return true;
-             }
-             document.getElementById('player4').style.left = posLeft + step;
-             break;
-             case 40:
-             //alert('Down key pressed');
-             if (posTop >= 795) {
-             return true;
-             }
-             document.getElementById('player4').style.top = posTop + step;
-             break;
-             }
-             };
-             */
+                 switch (event.keyCode) {
+                 case 37:
+                 //alert('Left key pressed');
+                 if (posLeft <= 0) {
+                 return true;
+                 }
+                 document.getElementById('player3').style.left = posLeft - step;
+                 break;
+                 case 38:
+                 //alert('Up key pressed');
+                 if (posTop <= 0) {
+                 return true;
+                 }
+                 document.getElementById('player3').style.top = posTop - step;
+                 break;
+                 case 39:
+                 //alert('Right key pressed');
+                 if (posLeft >= 925) {
+                 return true;
+                 }
+                 document.getElementById('player3').style.left = posLeft + step;
+                 break;
+                 case 40:
+                 //alert('Down key pressed');
+                 if (posTop >= 795) {
+                 return true;
+                 }
+                 document.getElementById('player3').style.top = posTop + step;
+                 break;
+                 }
+                 };
+
+
+
+                 document.onkeydown = function (event) {
+                 var step = 10;
+                 var posLeft = document.getElementById('player4').offsetLeft;
+                 var posTop = document.getElementById('player4').offsetTop;
+                 //alert(posLeft + ' ' + posTop);
+
+                 switch (event.keyCode) {
+                 case 37:
+                 //alert('Left key pressed');
+                 if (posLeft <= 0) {
+                 return true;
+                 }
+                 document.getElementById('player4').style.left = posLeft - step;
+                 break;
+                 case 38:
+                 //alert('Up key pressed');
+                 if (posTop <= 0) {
+                 return true;
+                 }
+                 document.getElementById('player4').style.top = posTop - step;
+                 break;
+                 case 39:
+                 //alert('Right key pressed');
+                 if (posLeft >= 925) {
+                 return true;
+                 }
+                 document.getElementById('player4').style.left = posLeft + step;
+                 break;
+                 case 40:
+                 //alert('Down key pressed');
+                 if (posTop >= 795) {
+                 return true;
+                 }
+                 document.getElementById('player4').style.top = posTop + step;
+                 break;
+                 }
+                 };
+                 */
 
         </script>
 
