@@ -190,8 +190,13 @@
 
             start_game(4); // temp while developing
 
+            function check_wall_collision(curr_bullet) {
+
+
+            }
+
             function move_bullets() {
-                const TIMEOUT_BETWEEN_HANDLING_BULLETS = 10;
+                const TIMEOUT_BETWEEN_HANDLING_BULLETS = 3;
                 const BULLET_SPEED = 2;
 
                 for (var i = 0; i < bullets.length; i++) {
@@ -206,6 +211,8 @@
 
                     curr_bullet.bullet.style.left = (curr_bullet.bullet.offsetLeft + dx) + "px";
                     curr_bullet.bullet.style.top = (curr_bullet.bullet.offsetTop + dy) + "px";
+
+                    check_wall_collision(curr_bullet);
                 }
 
 
