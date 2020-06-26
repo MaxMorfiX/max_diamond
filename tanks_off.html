@@ -195,8 +195,25 @@
             start_game(4); // temp while developing
 
             function check_wall_collision(curr_bullet) {
-
-
+                var positionX = curr_bullet.bullet.offsetLeft;
+                var positionY = curr_bullet.bullet.offsetTop;
+                if (positionX <= 0 ) {
+                    console.log("left BUM!");
+                    curr_bullet.to_delete = true;
+                }
+                if (positionX >= 950 ) {
+                    console.log("right BUM!");
+                    curr_bullet.to_delete = true;
+                }
+                if (positionY <= 0 ) {
+                    console.log("top BUM!");
+                    curr_bullet.to_delete = true;
+                }
+                if (positionY >= 630 ) {
+                    console.log("bottom BUM!");
+                    curr_bullet.to_delete = true;
+                }
+               
             }
 
             function move_bullets() {
@@ -205,6 +222,10 @@
 
                 for (var i = 0; i < bullets.length; i++) {
                     var curr_bullet = bullets[i];
+
+                    if (curr_bullet.to_delete) {
+                        continue;
+                    }
 
                     var dx = 0;
                     var dy = 0;
