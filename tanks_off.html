@@ -68,7 +68,7 @@
             var rotate_tank_2 = "top";
             var rotate_tank_3 = "top";
             var rotate_tank_4 = "top";
-            
+
 
             var key_mapping = {
                 16: {player_name: 'player1', action: 'bullet'},
@@ -96,7 +96,7 @@
                 98: {player_name: 'player4', action: 'bottom'}
             };
 
-            function bullet (player) {
+            function bullet(player) {
                 var bullet = document.createElement("div");
                 bullet.classList.add("bullet");
                 document.getElementById("field").appendChild(bullet);
@@ -177,7 +177,7 @@
                 keys[code] = pressed;
                 console.log(keys);
             }
-            
+
             document.onkeydown = function (event) {
                 set_key_pressed(event.keyCode, true);
             };
@@ -206,23 +206,20 @@
 
                 handle_pressed_keys();
             }
-            
+
             start_game(4); // temp while developing
 
 
 
             function handle_pressed_keys() {
                 const TIMEOUT_BETWEEN_HANDLING = 5;
-                
+
                 var step = 5;
-                var posLeft = document.getElementById('player1').offsetLeft;
-                var posTop = document.getElementById('player1').offsetTop;
 //                console.log(posLeft);
 //                console.log(posTop);
                 //alert(posLeft + ' ' + posTop);
-                var player_name = "player1";
 
-/*
+
                 for (var index in keys) {
                     if (!keys[index]) {
                         continue;
@@ -236,18 +233,37 @@
 
                     switch (key_data.action) {
                         case "bullet":
-                            make_bullet(key_data.player_name);
+                            bullet(key_data.player_name);
                             break;
                         case "left":
                             move_left(key_data.player_name);
                             break;
+                        case "right":
+                            move_right(key_data.player_name);
+                            break;
+                        case "top":
+                            move_top(key_data.player_name);
+                            break;
+                        case "bottom":
+                            move_bottom(key_data.player_name);
+                            break;
                     }
 
                 }
-        */
 
-                if (keys[37]) {
-                    //alert('Left key pressed');
+
+
+
+                function move_right(player_name) {
+                var posLeft = document.getElementById(player_name).offsetLeft;
+                    if (posLeft < 915) {
+                        document.getElementById(player_name).style.left = (posLeft + step) + "px";
+                        document.getElementById(player_name).style.transform = "rotate(100grad)";
+                        rotate_tank_1 = "right";
+                    }
+                }
+                function move_left(player_name) {
+                var posLeft = document.getElementById(player_name).offsetLeft;
                     if (posLeft > 0) {
                         console.log(posLeft - step);
                         document.getElementById(player_name).style.left = (posLeft - step) + "px";
@@ -258,35 +274,45 @@
                         rotate_tank_1 = "left";
                     }
                 }
-                
-                if (keys[38]) {
-                        //alert('Up key pressed');
-                        if (posTop > 0) {
+                function move_top(player_name) {
+                var posTop = document.getElementById(player_name).offsetTop;
+                    if (posTop > 0) {
                         document.getElementById(player_name).style.top = (posTop - step) + "px";
                         document.getElementById(player_name).style.transform = "rotate(0grad)";
                         rotate_tank_1 = "top";
                     }
-                    
                 }
-
-                if (keys[39]) {
-                        //alert('Right key pressed');
-                        if (posLeft < 915) {
-                        document.getElementById(player_name).style.left = (posLeft + step) + "px";
-                        document.getElementById(player_name).style.transform = "rotate(100grad)";
-                        rotate_tank_1 = "right";
-                    }
-                }
-
-                if (keys[40]) {
-                        //alert('Down key pressed');
-                        if (posTop < 595) {
+                function move_bottom(player_name) {
+                var posTop = document.getElementById(player_name).offsetTop;
+                    if (posTop < 595) {
                         document.getElementById(player_name).style.top = (posTop + step) + "px";
                         document.getElementById(player_name).style.transform = "rotate(200grad)";
                         rotate_tank_1 = "bottom";
                     }
                 }
-                
+
+                if (keys[37]) {
+                    //alert('Left key pressed');
+                }
+
+                if (keys[38]) {
+                    //alert('Up key pressed');
+                }
+
+                if (keys[39]) {
+                    //alert('Right key pressed');
+
+                }
+
+                if (keys[40]) {
+                    //alert('Down key pressed');
+                    if (posTop < 595) {
+                        document.getElementById(player_name).style.top = (posTop + step) + "px";
+                        document.getElementById(player_name).style.transform = "rotate(200grad)";
+                        rotate_tank_1 = "bottom";
+                    }
+                }
+
                 if (keys[KEY_L]) {
                     make_bullet(player_name);
                     console.log('should start a bullet');
