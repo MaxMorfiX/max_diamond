@@ -35,6 +35,21 @@
                 background: url("tanks_off/bullet.png");
             }
 
+            .bullet.left {
+                transform: rotate(-100grad);
+            }
+
+            .bullet.right {
+                transform: rotate(100grad);
+            }
+
+            .bullet.top {
+                transform: rotate(0grad);
+            }
+
+            .bullet.bottom {
+                transform: rotate(200grad);
+            }
         </style>
     </head>
     <body>
@@ -69,6 +84,9 @@
             var rotate_tank_3 = "top";
             var rotate_tank_4 = "top";
 
+            var keys = {};
+            var bullets = [];
+
 
             var key_mapping = {
                 16: {player_name: 'player1', action: 'bullet'},
@@ -96,82 +114,78 @@
                 98: {player_name: 'player4', action: 'bottom'}
             };
 
+
             function bullet(player) {
                 var bullet = document.createElement("div");
                 bullet.classList.add("bullet");
-                document.getElementById("field").appendChild(bullet);
                 var tank = document.getElementById(player);
-
                 var posLeft = tank.offsetLeft;
                 var posTop = tank.offsetTop;
-
                 bullet.style.top = (posTop + 9) + "px";
                 bullet.style.left = (posLeft + 12) + "px";
+                bullet.classList.add(rotate_tank_1);
 
+                document.getElementById("field").appendChild(bullet);
 
                 if (rotate_tank_1 === "left") {
-                    document.getElementById("field").lastChild.style.transform = "rotate( -100grad)";
+                    
                     // надо делать через таймауты, чотбы было видно движение
                     var i = 0;
                     while (i < 1) {
 //                        console.log('+');
                         var posLeft = bullet.offsetLeft;
-//                        console.log("was " + posLeft + ' and became ' + (posLeft + 10));
-                        document.getElementById("field").lastChild.style.left = (posLeft + 10) + "px";
+                        console.log("was " + posLeft + ' and became ' + (posLeft + 10));
+                        bullet.style.left = (posLeft + 10) + "px";
                         if (posLeft >= 950) {
                             i = 1;
-//                            document.getElementById("field").lastChild.style = ("display: none");
+//                            bullet.style = ("display: none");
                         }
                     }
                 }
                 if (rotate_tank_1 === "right") {
-                    document.getElementById("field").lastChild.style.transform = "rotate( 100grad)";
                     // надо делать через таймауты, чотбы было видно движение
                     var i = 0;
                     while (i < 1) {
                         console.log('+');
                         var posLeft = bullet.offsetLeft;
                         console.log("was " + posLeft + ' and became ' + (posLeft - 10));
-                        document.getElementById("field").lastChild.style.left = (posLeft - 10) + "px";
+                        bullet.style.left = (posLeft - 10) + "px";
                         if (posLeft < 10) {
                             i = 1;
-//                        document.getElementById("field").lastChild.style = ("display: none");
+//                        bullet.style = ("display: none");
                         }
                     }
                 }
                 if (rotate_tank_1 === "top") {
-                    document.getElementById("field").lastChild.style.transform = "rotate( 0grad)";
                     // надо делать через таймауты, чотбы было видно движение
                     var i = 0;
                     while (i < 1) {
                         console.log('+');
                         var posTop = bullet.offsetLeft;
                         console.log("was " + posTop + ' and became ' + (posTop - 10));
-                        document.getElementById("field").lastChild.style.left = (posTop - 10) + "px";
+                        bullet.style.left = (posTop - 10) + "px";
                         if (posTop <= 0) {
                             i = 1;
-//                            document.getElementById("field").lastChild.style = ("display: none");
+//                            bullet.style = ("display: none");
                         }
                     }
                 }
                 if (rotate_tank_1 === "bottom") {
-                    document.getElementById("field").lastChild.style.transform = "rotate( 200grad)";
                     // надо делать через таймауты, чотбы было видно движение
                     var i = 0;
                     while (i < 1) {
                         console.log('+');
                         var posTop = bullet.offsetLeft;
                         console.log("was " + posTop + ' and became ' + (posTop + 10));
-                        document.getElementById("field").lastChild.style.left = (posTop + 10) + "px";
+                        bullet.style.left = (posTop + 10) + "px";
                         if (posTop >= 630) {
                             i = 1;
-//                            document.getElementById("field").lastChild.style = ("display: none");
+//                            bullet.style = ("display: none");
                         }
                     }
                 }
             }
 
-            var keys = {};
             function set_key_pressed(code, pressed) {
                 keys[code] = pressed;
                 console.log(keys);
