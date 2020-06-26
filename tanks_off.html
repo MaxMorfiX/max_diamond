@@ -111,82 +111,46 @@
                 98: {player_name: 'player4', action: 'bottom'}
             };
 
-
-            function bullet(player) {
-                var bullet = document.createElement("div");
-                bullet.classList.add("bullet");
-                var tank = document.getElementById(player);
-                var posLeft = tank.offsetLeft;
-                var posTop = tank.offsetTop;
-                bullet.style.top = (posTop + 9) + "px";
-                bullet.style.left = (posLeft + 12) + "px";
-                var current_rotation = tanks[player].rotation;
-                bullet.classList.add(current_rotation);
-
-                document.getElementById("field").appendChild(bullet);
+            function place_bullet_near_barrel(player_name, bullet) {
+                var tank = tanks[player_name].tank;
+                var tanks_pos_left = tank.offsetLeft;
+                var tanks_pos_top = tank.offsetTop;
+                var current_rotation = tanks[player_name].rotation;
 
                 if (current_rotation === "left") {
-                    
-                    // надо делать через таймауты, чотбы было видно движение
-                    var i = 0;
-                    while (i < 1) {
-//                        console.log('+');
-                        var posLeft = bullet.offsetLeft;
-                        console.log("was " + posLeft + ' and became ' + (posLeft + 10));
-                        bullet.style.left = (posLeft + 10) + "px";
-                        if (posLeft >= 950) {
-                            i = 1;
-//                            bullet.style = ("display: none");
-                        }
-                    }
+                    bullet.style.top = (tanks_pos_top + 9) + "px";
+                    bullet.style.left = (tanks_pos_left + 12) + "px";
                 }
+
                 if (current_rotation === "right") {
-                    // надо делать через таймауты, чотбы было видно движение
-                    var i = 0;
-                    while (i < 1) {
-                        console.log('+');
-                        var posLeft = bullet.offsetLeft;
-                        console.log("was " + posLeft + ' and became ' + (posLeft - 10));
-                        bullet.style.left = (posLeft - 10) + "px";
-                        if (posLeft < 10) {
-                            i = 1;
-//                        bullet.style = ("display: none");
-                        }
-                    }
+
+
                 }
+
                 if (current_rotation === "top") {
-                    // надо делать через таймауты, чотбы было видно движение
-                    var i = 0;
-                    while (i < 1) {
-                        console.log('+');
-                        var posTop = bullet.offsetLeft;
-                        console.log("was " + posTop + ' and became ' + (posTop - 10));
-                        bullet.style.left = (posTop - 10) + "px";
-                        if (posTop <= 0) {
-                            i = 1;
-//                            bullet.style = ("display: none");
-                        }
-                    }
                 }
+
                 if (current_rotation === "bottom") {
-                    // надо делать через таймауты, чотбы было видно движение
-                    var i = 0;
-                    while (i < 1) {
-                        console.log('+');
-                        var posTop = bullet.offsetLeft;
-                        console.log("was " + posTop + ' and became ' + (posTop + 10));
-                        bullet.style.left = (posTop + 10) + "px";
-                        if (posTop >= 630) {
-                            i = 1;
-//                            bullet.style = ("display: none");
-                        }
-                    }
                 }
             }
 
+
+            function add_bullet(player_name) {
+                var bullet = document.createElement("div");
+                bullet.classList.add("bullet");
+                bullet.classList.add(tanks[player_name].rotation);
+                place_bullet_near_barrel(player_name, bullet);
+
+                document.getElementById("field").appendChild(bullet);
+                bullets.push({bullet: bullet, rotation: tanks[player_name].rotation});
+            }
+
             function set_key_pressed(code, pressed) {
+                if (keys[code] === "ignore_keydown" && pressed) {
+                    return;
+                }
                 keys[code] = pressed;
-                console.log(keys);
+//                console.log(keys);
             }
 
             document.onkeydown = function (event) {
@@ -221,10 +185,32 @@
                 tanks["player4"] = {tank: document.getElementById("player4"), rotation: "top"};
 
                 handle_pressed_keys();
+                move_bullets();
             }
 
             start_game(4); // temp while developing
 
+            function move_bullets() {
+                const TIMEOUT_BETWEEN_HANDLING_BULLETS = 10;
+                const BULLET_SPEED = 2;
+
+                for (var i = 0; i < bullets.length; i++) {
+                    var curr_bullet = bullets[i];
+
+                    var dx = 0;
+                    var dy = 0;
+
+                    if (curr_bullet.rotation === "left") {
+                        dx = -BULLET_SPEED;
+                    }
+
+                    curr_bullet.bullet.style.left = (curr_bullet.bullet.offsetLeft + dx) + "px";
+                    curr_bullet.bullet.style.top = (curr_bullet.bullet.offsetTop + dy) + "px";
+                }
+
+
+                setTimeout(move_bullets, TIMEOUT_BETWEEN_HANDLING_BULLETS);
+            }
 
 
             function handle_pressed_keys() {
@@ -237,7 +223,7 @@
 
 
                 for (var index in keys) {
-                    if (!keys[index]) {
+                    if (!keys[index] || keys[index] === "ignore_keydown") {
                         continue;
                     }
 
@@ -249,7 +235,8 @@
 
                     switch (key_data.action) {
                         case "bullet":
-                            bullet(key_data.player_name);
+                            keys[index] = "ignore_keydown";
+                            add_bullet(key_data.player_name);
                             break;
                         case "left":
                             move_left(key_data.player_name);
@@ -279,10 +266,10 @@
                 function move_left(player_name) {
                     var posLeft = document.getElementById(player_name).offsetLeft;
                     if (posLeft > 0) {
-                        console.log(posLeft - step);
+//                        console.log(posLeft - step);
                         document.getElementById(player_name).style.left = (posLeft - step) + "px";
-                        console.log(document.getElementById(player_name).offsetLeft);
-                        console.log(document.getElementById(player_name).style.left);
+//                        console.log(document.getElementById(player_name).offsetLeft);
+//                        console.log(document.getElementById(player_name).style.left);
 //                        document.getElementById('player1').style.right = 'auto';
                         document.getElementById(player_name).style.transform = "rotate(300grad)";
                         tanks[player_name].rotation = "left";
