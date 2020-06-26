@@ -63,6 +63,7 @@
         </div>
         <script>
             const KEY_SPASE = 32;
+            const KEY_L = 76;
             var rotate_tank_1 = "top";
             var rotate_tank_2 = "top";
             var rotate_tank_3 = "top";
@@ -95,48 +96,11 @@
                 98: {player_name: 'player4', action: 'bottom'}
             };
 
-            var keys = {};
-            function set_key_pressed(code, pressed) {
-                keys[code] = pressed;
-                console.log(keys);
-            }
-            
-            document.onkeydown = function (event) {
-                set_key_pressed(event.keyCode, true);
-            };
-
-            document.onkeyup = function (event) {
-                set_key_pressed(event.keyCode, false);
-            };
-
-            function start_game(players) {
-                document.getElementById("field").style = "display: block";
-                console.log("игра началась с " + players + " игроками");
-
-                for (var i = 2; i <= 4; i++) {
-                    document.getElementById("players_choose_button_" + i).style = "display: none";
-                }
-
-                for (var i = 1; i <= players; i++) {
-                    var tank = document.getElementById("player" + i);
-                    tank.style = `background:url("tanks_off/${i}.png"); display: block`;
-                }
-
-                document.getElementById("player1").style.right = '0px';
-                document.getElementById("player2").style.bottom = '0px';
-                document.getElementById("player4").style.right = "0px";
-                document.getElementById("player4").style.bottom = "0px";
-
-                handle_pressed_keys();
-            }
-            
-            start_game(4); // temp while developing
-
-            function make_bullet(player_name) {
+            function bullet (player) {
                 var bullet = document.createElement("div");
                 bullet.classList.add("bullet");
                 document.getElementById("field").appendChild(bullet);
-                var tank = document.getElementById(player_name);
+                var tank = document.getElementById(player);
 
                 var posLeft = tank.offsetLeft;
                 var posTop = tank.offsetTop;
@@ -147,12 +111,13 @@
 
                 if (rotate_tank_1 === "left") {
                     document.getElementById("field").lastChild.style.transform = "rotate( -100grad)";
+                    setTimeout(handle_pressed_keys, TIMEOUT_BETWEEN_HANDLING);
                     // надо делать через таймауты, чотбы было видно движение
                     var i = 0;
                     while (i < 1) {
-                        console.log('+');
+//                        console.log('+');
                         var posLeft = bullet.offsetLeft;
-                        console.log("was " + posLeft + ' and became ' + (posLeft + 10));
+//                        console.log("was " + posLeft + ' and became ' + (posLeft + 10));
                         document.getElementById("field").lastChild.style.left = (posLeft + 10) + "px";
                         if (posLeft >= 950) {
                             i = 1;
@@ -207,11 +172,49 @@
                 }
             }
 
+            var keys = {};
+            function set_key_pressed(code, pressed) {
+                keys[code] = pressed;
+                console.log(keys);
+            }
+            
+            document.onkeydown = function (event) {
+                set_key_pressed(event.keyCode, true);
+            };
+
+            document.onkeyup = function (event) {
+                set_key_pressed(event.keyCode, false);
+            };
+
+            function start_game(players) {
+                document.getElementById("field").style = "display: block";
+                console.log("игра началась с " + players + " игроками");
+
+                for (var i = 2; i <= 4; i++) {
+                    document.getElementById("players_choose_button_" + i).style = "display: none";
+                }
+
+                for (var i = 1; i <= players; i++) {
+                    var tank = document.getElementById("player" + i);
+                    tank.style = `background:url("tanks_off/${i}.png"); display: block`;
+                }
+
+                document.getElementById("player1").style.right = '0px';
+                document.getElementById("player2").style.bottom = '0px';
+                document.getElementById("player4").style.right = "0px";
+                document.getElementById("player4").style.bottom = "0px";
+
+                handle_pressed_keys();
+            }
+            
+            start_game(4); // temp while developing
+
+
 
             function handle_pressed_keys() {
-                const TIMEOUT_BETWEEN_HANDLING = 60;
+                const TIMEOUT_BETWEEN_HANDLING = 5;
                 
-                var step = 10;
+                var step = 5;
                 var posLeft = document.getElementById('player1').offsetLeft;
                 var posTop = document.getElementById('player1').offsetTop;
 //                console.log(posLeft);
