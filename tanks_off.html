@@ -79,12 +79,9 @@
         <script>
             const KEY_SPASE = 32;
             const KEY_L = 76;
-            var rotate_tank_1 = "top";
-            var rotate_tank_2 = "top";
-            var rotate_tank_3 = "top";
-            var rotate_tank_4 = "top";
 
             var keys = {};
+            var tanks = {};
             var bullets = [];
 
 
@@ -123,11 +120,12 @@
                 var posTop = tank.offsetTop;
                 bullet.style.top = (posTop + 9) + "px";
                 bullet.style.left = (posLeft + 12) + "px";
-                bullet.classList.add(rotate_tank_1);
+                var current_rotation = tanks[player].rotation;
+                bullet.classList.add(current_rotation);
 
                 document.getElementById("field").appendChild(bullet);
 
-                if (rotate_tank_1 === "left") {
+                if (current_rotation === "left") {
                     
                     // надо делать через таймауты, чотбы было видно движение
                     var i = 0;
@@ -142,7 +140,7 @@
                         }
                     }
                 }
-                if (rotate_tank_1 === "right") {
+                if (current_rotation === "right") {
                     // надо делать через таймауты, чотбы было видно движение
                     var i = 0;
                     while (i < 1) {
@@ -156,7 +154,7 @@
                         }
                     }
                 }
-                if (rotate_tank_1 === "top") {
+                if (current_rotation === "top") {
                     // надо делать через таймауты, чотбы было видно движение
                     var i = 0;
                     while (i < 1) {
@@ -170,7 +168,7 @@
                         }
                     }
                 }
-                if (rotate_tank_1 === "bottom") {
+                if (current_rotation === "bottom") {
                     // надо делать через таймауты, чотбы было видно движение
                     var i = 0;
                     while (i < 1) {
@@ -216,6 +214,11 @@
                 document.getElementById("player2").style.bottom = '0px';
                 document.getElementById("player4").style.right = "0px";
                 document.getElementById("player4").style.bottom = "0px";
+
+                tanks["player1"] = {tank: document.getElementById("player1"), rotation: "top"};
+                tanks["player2"] = {tank: document.getElementById("player2"), rotation: "top"};
+                tanks["player3"] = {tank: document.getElementById("player3"), rotation: "top"};
+                tanks["player4"] = {tank: document.getElementById("player4"), rotation: "top"};
 
                 handle_pressed_keys();
             }
@@ -269,7 +272,7 @@
                     if (posLeft < 915) {
                         document.getElementById(player_name).style.left = (posLeft + step) + "px";
                         document.getElementById(player_name).style.transform = "rotate(100grad)";
-                        rotate_tank_1 = "right";
+                        tanks[player_name].rotation = "right";
                     }
                 }
 
@@ -282,7 +285,7 @@
                         console.log(document.getElementById(player_name).style.left);
 //                        document.getElementById('player1').style.right = 'auto';
                         document.getElementById(player_name).style.transform = "rotate(300grad)";
-                        rotate_tank_1 = "left";
+                        tanks[player_name].rotation = "left";
                     }
                 }
 
@@ -291,7 +294,7 @@
                     if (posTop > 0) {
                         document.getElementById(player_name).style.top = (posTop - step) + "px";
                         document.getElementById(player_name).style.transform = "rotate(0grad)";
-                        rotate_tank_1 = "top";
+                        tanks[player_name].rotation = "top";
                     }
                 }
 
@@ -300,7 +303,7 @@
                     if (posTop < 595) {
                         document.getElementById(player_name).style.top = (posTop + step) + "px";
                         document.getElementById(player_name).style.transform = "rotate(200grad)";
-                        rotate_tank_1 = "bottom";
+                        tanks[player_name].rotation = "bottom";
                     }
                 }
 
