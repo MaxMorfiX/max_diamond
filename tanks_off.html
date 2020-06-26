@@ -62,7 +62,7 @@
 
         </div>
         <script>
-            const KEY_L = 76;
+            const KEY_SPASE = 32;
             var rotate_tank_1 = "top";
             var rotate_tank_2 = "top";
             var rotate_tank_3 = "top";
@@ -70,11 +70,29 @@
             
 
             var key_mapping = {
-                KEY_L: {player_name: 'player1', action: 'bullet'},
+                16: {player_name: 'player1', action: 'bullet'},
                 37: {player_name: 'player1', action: 'left'},
+                39: {player_name: 'player1', action: 'right'},
+                38: {player_name: 'player1', action: 'top'},
+                40: {player_name: 'player1', action: 'bottom'},
 
-                137: {player_name: 'player2', action: 'bullet'},
-                138: {player_name: 'player2', action: 'left'}
+                49: {player_name: 'player2', action: 'bullet'},
+                65: {player_name: 'player2', action: 'left'},
+                68: {player_name: 'player2', action: 'right'},
+                87: {player_name: 'player2', action: 'top'},
+                83: {player_name: 'player2', action: 'bottom'},
+
+                KEY_SPASE: {player_name: 'player3', action: 'bullet'},
+                74: {player_name: 'player3', action: 'left'},
+                76: {player_name: 'player3', action: 'right'},
+                73: {player_name: 'player3', action: 'top'},
+                75: {player_name: 'player3', action: 'bottom'},
+
+                13: {player_name: 'player4', action: 'bullet'},
+                97: {player_name: 'player4', action: 'left'},
+                99: {player_name: 'player4', action: 'right'},
+                101: {player_name: 'player4', action: 'top'},
+                98: {player_name: 'player4', action: 'bottom'}
             };
 
             var keys = {};
@@ -279,130 +297,6 @@
 
                 setTimeout(handle_pressed_keys, TIMEOUT_BETWEEN_HANDLING);
             }
-
-
-
-
-                /*
-                 document.onkeydown = function (event) {
-                 var step = 10;
-                 var posLeft = document.getElementById('player2').offsetLeft;
-                 var posTop = document.getElementById('player2').offsetTop;
-                 //alert(posLeft + ' ' + posTop);
-
-                 switch (event.keyCode) {
-                 case 37:
-                 //alert('Left key pressed');
-                 if (posLeft <= 0) {
-                 return true;
-                 }
-                 document.getElementById('player2').style.left = posLeft - step;
-                 break;
-                 case 38:
-                 //alert('Up key pressed');
-                 if (posTop <= 0) {
-                 return true;
-                 }
-                 document.getElementById('player2').style.top = posTop - step;
-                 break;
-                 case 39:
-                 //alert('Right key pressed');
-                 if (posLeft >= 925) {
-                 return true;
-                 }
-                 document.getElementById('player2').style.left = posLeft + step;
-                 break;
-                 case 40:
-                 //alert('Down key pressed');
-                 if (posTop >= 795) {
-                 return true;
-                 }
-                 document.getElementById('player2').style.top = posTop + step;
-                 break;
-                 }
-                 };
-
-
-
-                 document.onkeydown = function (event) {
-                 var step = 10;
-                 var posLeft = document.getElementById('player3').offsetLeft;
-                 var posTop = document.getElementById('player3').offsetTop;
-                 //alert(posLeft + ' ' + posTop);
-
-                 switch (event.keyCode) {
-                 case 37:
-                 //alert('Left key pressed');
-                 if (posLeft <= 0) {
-                 return true;
-                 }
-                 document.getElementById('player3').style.left = posLeft - step;
-                 break;
-                 case 38:
-                 //alert('Up key pressed');
-                 if (posTop <= 0) {
-                 return true;
-                 }
-                 document.getElementById('player3').style.top = posTop - step;
-                 break;
-                 case 39:
-                 //alert('Right key pressed');
-                 if (posLeft >= 925) {
-                 return true;
-                 }
-                 document.getElementById('player3').style.left = posLeft + step;
-                 break;
-                 case 40:
-                 //alert('Down key pressed');
-                 if (posTop >= 795) {
-                 return true;
-                 }
-                 document.getElementById('player3').style.top = posTop + step;
-                 break;
-                 }
-                 };
-
-
-
-                 document.onkeydown = function (event) {
-                 var step = 10;
-                 var posLeft = document.getElementById('player4').offsetLeft;
-                 var posTop = document.getElementById('player4').offsetTop;
-                 //alert(posLeft + ' ' + posTop);
-
-                 switch (event.keyCode) {
-                 case 37:
-                 //alert('Left key pressed');
-                 if (posLeft <= 0) {
-                 return true;
-                 }
-                 document.getElementById('player4').style.left = posLeft - step;
-                 break;
-                 case 38:
-                 //alert('Up key pressed');
-                 if (posTop <= 0) {
-                 return true;
-                 }
-                 document.getElementById('player4').style.top = posTop - step;
-                 break;
-                 case 39:
-                 //alert('Right key pressed');
-                 if (posLeft >= 925) {
-                 return true;
-                 }
-                 document.getElementById('player4').style.left = posLeft + step;
-                 break;
-                 case 40:
-                 //alert('Down key pressed');
-                 if (posTop >= 795) {
-                 return true;
-                 }
-                 document.getElementById('player4').style.top = posTop + step;
-                 break;
-                 }
-                 };
-                 */
-
         </script>
 
     </body>
