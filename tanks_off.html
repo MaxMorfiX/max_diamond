@@ -50,6 +50,9 @@
             .bullet.bottom {
                 transform: rotate(200grad);
             }
+            .score_of_the_players {
+
+            }
         </style>
     </head>
     <body>
@@ -76,6 +79,9 @@
 
 
         </div>
+        <p id="score_player1" class="score_of_the_players">
+
+        </p>
         <script>
             const KEY_SPASE = 32;
 
@@ -139,13 +145,13 @@
 
 
             function add_bullet(player_name) {
+
                 var bullet = document.createElement("div");
                 bullet.classList.add("bullet");
                 bullet.classList.add(tanks[player_name].rotation);
                 place_bullet_near_barrel(player_name, bullet);
-
                 document.getElementById("field").appendChild(bullet);
-                bullets.push({bullet: bullet, rotation: tanks[player_name].rotation});
+                bullets.push({bullet: bullet, rotation: tanks[player_name].rotation, owner: player_name });
             }
 
             function set_key_pressed(code, pressed) {
@@ -216,6 +222,10 @@
             }
             function check_tanks_collisions(bullet) {
                 for (var index in tanks) {
+                    if (bullet.owner === tanks[index].tank.id) {
+                        continue;
+                    }
+
                     console.log(33);
                     var f_ok = check_one_tank_collision(bullet, tanks[index]);
                     if (!f_ok) {
