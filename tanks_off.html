@@ -115,7 +115,7 @@
 
 
             var key_mapping = {
-                16: {player_name: 'player1', action: 'bullet'},
+                17: {player_name: 'player1', action: 'bullet'},
                 37: {player_name: 'player1', action: 'left'},
                 39: {player_name: 'player1', action: 'right'},
                 38: {player_name: 'player1', action: 'top'},
@@ -228,19 +228,19 @@
                 var positionX = curr_bullet.bullet.offsetLeft;
                 var positionY = curr_bullet.bullet.offsetTop;
                 if (positionX <= 0) {
-                    console.log("left BUM!");
+//                    console.log("left BUM!");
                     curr_bullet.to_delete = true;
                 }
                 if (positionX >= 950) {
-                    console.log("right BUM!");
+//                    console.log("right BUM!");
                     curr_bullet.to_delete = true;
                 }
                 if (positionY <= 0) {
-                    console.log("top BUM!");
+//                    console.log("top BUM!");
                     curr_bullet.to_delete = true;
                 }
                 if (positionY >= 630) {
-                    console.log("bottom BUM!");
+//                    console.log("bottom BUM!");
                     curr_bullet.to_delete = true;
                 }
 
@@ -276,13 +276,9 @@
                         if (bullet_positionY >= tank_top) {
                             if (bullet_positionY <= tank_bottom) {
                                 var player_id = tank.tank.id;
-                                var count = document.getElementById('score_' + player_id).textContent;
-                                count = count - 1;
-                                document.getElementById('score_' + player_id).innerHTML = count;
-
 
                                 var count_owner = document.getElementById('score_' + owner).textContent;
-                                count_owner = count_owner + 1;
+                                count_owner = parseInt(count_owner) + 1;
                                 document.getElementById('score_' + owner).innerHTML = count_owner;
                                 
                                 return false;
