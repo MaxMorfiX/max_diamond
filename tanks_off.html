@@ -252,7 +252,7 @@
                     }
 
 //                    console.log(33);
-                    var f_ok = check_one_tank_collision(bullet, tanks[index]);
+                    var f_ok = check_one_tank_collision(bullet, tanks[index], bullet.owner);
                     if (!f_ok) {
                         bullet.to_delete = true;
                         console.log('Tank bum!');
@@ -262,14 +262,13 @@
                 return true;
             }
 
-            function check_one_tank_collision(bullet, tank) {
+            function check_one_tank_collision(bullet, tank, owner) {
                 var tank_left = tank.tank.offsetLeft;
                 var tank_right = tank_left + 35;
                 var tank_top = tank.tank.offsetTop;
                 var tank_bottom = tank_top + 35;
                 var bullet_positionX = bullet.bullet.offsetLeft;
                 var bullet_positionY = bullet.bullet.offsetTop;
-
 //                console.log(`tank: left - ${tank_left}, top - ${tank_top}, BULLET: x - ${bullet_positionX}, y - ${bullet_positionY}, `);
 
                 if (bullet_positionX >= tank_left) {
@@ -280,6 +279,11 @@
                                 var count = document.getElementById('score_' + player_id).textContent;
                                 count = count - 1;
                                 document.getElementById('score_' + player_id).innerHTML = count;
+
+
+                                var count_owner = document.getElementById('score_' + owner).textContent;
+                                count_owner = count_owner + 1;
+                                document.getElementById('score_' + owner).innerHTML = count_owner;
                                 
                                 return false;
                             }
