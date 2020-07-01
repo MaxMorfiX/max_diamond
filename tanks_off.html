@@ -51,7 +51,22 @@
                 transform: rotate(200grad);
             }
             .score_of_the_players {
-
+                margin-left: 30px;
+                margin-top: 10px;
+                border: 5px black;
+                display: none;
+            }
+            #score_player1 {
+                background-color: #3d46cd;
+            }
+            #score_player2 {
+                background-color: #1db34a;
+            }
+            #score_player3 {
+                background-color: #fff200;
+            }
+            #score_player4 {
+                background-color: #ee161f;
             }
         </style>
     </head>
@@ -79,9 +94,18 @@
 
 
         </div>
-        <p id="score_player1" class="score_of_the_players">
-
-        </p>
+        <div id="score_player1" class="score_of_the_players">
+            0
+        </div>
+        <div id="score_player2" class="score_of_the_players">
+            0
+        </div>
+        <div id="score_player3" class="score_of_the_players">
+            0
+        </div>
+        <div id="score_player4" class="score_of_the_players">
+            0
+        </div>
         <script>
             const KEY_SPASE = 32;
 
@@ -151,7 +175,7 @@
                 bullet.classList.add(tanks[player_name].rotation);
                 place_bullet_near_barrel(player_name, bullet);
                 document.getElementById("field").appendChild(bullet);
-                bullets.push({bullet: bullet, rotation: tanks[player_name].rotation, owner: player_name });
+                bullets.push({bullet: bullet, rotation: tanks[player_name].rotation, owner: player_name});
             }
 
             function set_key_pressed(code, pressed) {
@@ -180,9 +204,10 @@
 
                 for (var i = 1; i <= players; i++) {
                     var tank = document.getElementById("player" + i);
+                    var score_players = document.getElementById("score_player" + i);
                     tank.style = `background:url("tanks_off/${i}.png"); display: block`;
+                    score_players.style = 'display: block';
                 }
-
                 document.getElementById("player1").style.right = '0px';
                 document.getElementById("player2").style.bottom = '0px';
                 document.getElementById("player4").style.right = "0px";
@@ -197,7 +222,7 @@
                 move_bullets();
             }
 
-            start_game(4); // temp while developing
+//            start_game(4); // temp while developing
 
             function check_wall_collision(curr_bullet) {
                 var positionX = curr_bullet.bullet.offsetLeft;
@@ -226,7 +251,7 @@
                         continue;
                     }
 
-                    console.log(33);
+//                    console.log(33);
                     var f_ok = check_one_tank_collision(bullet, tanks[index]);
                     if (!f_ok) {
                         bullet.to_delete = true;
@@ -245,13 +270,34 @@
                 var bullet_positionX = bullet.bullet.offsetLeft;
                 var bullet_positionY = bullet.bullet.offsetTop;
 
-                console.log(`tank: left - ${tank_left}, top - ${tank_top}, BULLET: x - ${bullet_positionX}, y - ${bullet_positionY}, `);
+//                console.log(`tank: left - ${tank_left}, top - ${tank_top}, BULLET: x - ${bullet_positionX}, y - ${bullet_positionY}, `);
 
                 if (bullet_positionX >= tank_left) {
                     if (bullet_positionX <= tank_right) {
                         if (bullet_positionY >= tank_top) {
                             if (bullet_positionY <= tank_bottom) {
+                                if (tank.tank.id === player1) {
+                                    var count = document.getElementById(score_player1).textContent;
+                                    count = count - 1;
+                                    document.getElementById("score_player1").innerHTML = count;
+                                }
+                                if (tank.tank.id === player2) {
+                                    var count = document.getElementById(score_player2).textContent;
+                                    count = count - 1;
+                                    document.getElementById("score_player2").innerHTML = count;
+                                }
+                                if (tank.tank.id === player3) {
+                                    var count = document.getElementById(score_player3).textContent;
+                                    count = count - 1;
+                                    document.getElementById("score_player3").innerHTML = count;
+                                }
+                                if (tank.tank.id === player4) {
+                                    var count = document.getElementById(score_player4).textContent;
+                                    count = count - 1;
+                                    document.getElementById("score_player4").innerHTML = count;
+                                }
                                 return false;
+
                             }
                         }
                     }
@@ -296,8 +342,8 @@
 
 
             function handle_pressed_keys() {
-                const TIMEOUT_BETWEEN_HANDLING = 5;
-                var step = 5;
+                const TIMEOUT_BETWEEN_HANDLING = 10;
+                var step = 2;
 //                console.log(posLeft);
 //                console.log(posTop);
                 //alert(posLeft + ' ' + posTop);
