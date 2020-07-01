@@ -276,34 +276,11 @@
                     if (bullet_positionX <= tank_right) {
                         if (bullet_positionY >= tank_top) {
                             if (bullet_positionY <= tank_bottom) {
-                                if (tank.tank.id === 'player1') {
-                                    var count = document.getElementById('score_player1').textContent;
-                                    console.log(count);
-                                    count = count - 1;
-                                    console.log(count);
-                                    document.getElementById("score_player1").innerHTML = count;
-                                }
-                                if (tank.tank.id === 'player2') {
-                                    var count = document.getElementById('score_player2').textContent;
-                                    console.log(count);
-                                    count = count - 1;
-                                    console.log(count);
-                                    document.getElementById("score_player2").innerHTML = count;
-                                }
-                                if (tank.tank.id === 'player3') {
-                                    var count = document.getElementById('score_player3').textContent;
-                                    console.log(count);
-                                    count = count - 1;
-                                    console.log(count);
-                                    document.getElementById("score_player3").innerHTML = count;
-                                }
-                                if (tank.tank.id === 'player4') {
-                                    var count = document.getElementById('score_player4').textContent;
-                                    console.log(count);
-                                    count = count - 1;
-                                    console.log(count);
-                                    document.getElementById("score_player4").innerHTML = count;
-                                }
+                                var player_id = tank.tank.id;
+                                var count = document.getElementById('score_' + player_id).textContent;
+                                count = count - 1;
+                                document.getElementById('score_' + player_id).innerHTML = count;
+                                
                                 return false;
                             }
                         }
