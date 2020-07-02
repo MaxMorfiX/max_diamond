@@ -3,6 +3,11 @@
     <head>
         <title>tanks_off</title>
         <style>
+            .inline_block {
+                display: inline-block;
+            }
+            .controls_block { width: 300px; }
+            .field_block { width: 975px; }
             .players_choose_button {
                 width: 100%;
                 height: 225px;
@@ -68,6 +73,10 @@
             #score_player4 {
                 background-color: #ee161f;
             }
+            .controles_of_the_players {
+                display: none;
+                margin: 30px;
+            }
         </style>
     </head>
     <body>
@@ -77,23 +86,70 @@
             <input id="players_choose_button_3" class="players_choose_button" type="button" value="3 players" style="background-color:yellow"      onclick="start_game(3);" >
             <input id="players_choose_button_4" class="players_choose_button" type="button" value="4 players" style="background-color:red"         onclick="start_game(4);" >
         </div>
-        <div id="field" class="field">
 
 
-            <div id="player1" class="player">
+      
+
+        <div class ="inline_block field_block">
+            <div id="field" class="field">
+
+                <div id="player1" class="player">
+                </div>
+
+                <div id="player2" class="player">
+                </div>
+
+                <div id="player3" class="player">
+                </div>
+
+                <div id="player4" class="player">
+                </div>
+
+
             </div>
+        </div>
 
-            <div id="player2" class="player">
+
+
+        <div class ="inline_block controls_block">
+
+            <div id="control_of_the_player1" class="controles_of_the_players">
+                Player 1: /n/
+                right: RIGHT/n/
+                left: LEFT/n/
+                down: DOWN/n/
+                up: UP/n/
+                shot: / ?/n/
             </div>
-
-            <div id="player3" class="player">
+            <div id="control_of_the_player2" class="controles_of_the_players">
+                Player 2: /n/
+                right: D/n/
+                left: A/n/
+                down: S/n/
+                up: W/n/
+                shot: 1/n/
             </div>
-
-            <div id="player4" class="player">
+            <div id="control_of_the_player3" class="controles_of_the_players">
+                 Player 3: /n/
+                right: NUMLOCK 3/n/
+                left: NUMLOCK 1/n/
+                down: NUMLOCK 2/n/
+                up: NUMLOCK 5/n/
+                shot: NUMLOCK ENTER/n/
             </div>
-
+            <div id="control_of_the_player4" class="controles_of_the_players">
+                 Player 3: /n/
+                right: L/n/
+                left: J/n/
+                down: K/n/
+                up: I/n/
+                shot: SPASE/n/
+                Player 4 - buttons I, K, J, L, SPASE.
+            </div>
 
         </div>
+
+
         <div id="score_player1" class="score_of_the_players">
             0
         </div>
@@ -126,17 +182,17 @@
                 87: {player_name: 'player2', action: 'top'},
                 83: {player_name: 'player2', action: 'bottom'},
 
-                32: {player_name: 'player3', action: 'bullet'},
-                74: {player_name: 'player3', action: 'left'},
-                76: {player_name: 'player3', action: 'right'},
-                73: {player_name: 'player3', action: 'top'},
-                75: {player_name: 'player3', action: 'bottom'},
+                32: {player_name: 'player4', action: 'bullet'},
+                74: {player_name: 'player4', action: 'left'},
+                76: {player_name: 'player4', action: 'right'},
+                73: {player_name: 'player4', action: 'top'},
+                75: {player_name: 'player4', action: 'bottom'},
 
-                13: {player_name: 'player4', action: 'bullet'},
-                97: {player_name: 'player4', action: 'left'},
-                99: {player_name: 'player4', action: 'right'},
-                101: {player_name: 'player4', action: 'top'},
-                98: {player_name: 'player4', action: 'bottom'}
+                13: {player_name: 'player3', action: 'bullet'},
+                97: {player_name: 'player3', action: 'left'},
+                99: {player_name: 'player3', action: 'right'},
+                101: {player_name: 'player3', action: 'top'},
+                98: {player_name: 'player3', action: 'bottom'}
             };
 
             function place_bullet_near_barrel(player_name, bullet) {
@@ -206,6 +262,9 @@
                     var score_players = document.getElementById("score_player" + i);
                     tank.style = `background:url("tanks_off/${i}.png"); display: block`;
                     score_players.style = 'display: block';
+                }
+                for (var i = 1; i <= players; i++) {
+                    document.getElementById("control_of_the_player" + i).style = "display: block";
                 }
                 document.getElementById("player1").style.right = '0px';
                 document.getElementById("player2").style.bottom = '0px';
@@ -293,7 +352,7 @@
                 const TIMEOUT_BETWEEN_HANDLING_BULLETS = 10;
                 const BULLET_SPEED = 15;
 
-                for (var i = bullets.length-1; i >= 0; i--) {
+                for (var i = bullets.length - 1; i >= 0; i--) {
                     var curr_bullet = bullets[i];
                     if (curr_bullet.to_delete) {
                         curr_bullet.bullet.parentNode.removeChild(curr_bullet.bullet);
