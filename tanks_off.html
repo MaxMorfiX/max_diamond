@@ -3,16 +3,6 @@
     <head>
         <title>tanks_off</title>
         <style>
-            .inline_block {
-                display: inline-block;
-            }
-            .controls_block { width: 300px; }
-            .field_block { width: 975px; }
-            .players_choose_button {
-                width: 100%;
-                height: 225px;
-                display: block
-            }
             .field {
                 position: relative;
                 width:  950px;
@@ -21,6 +11,11 @@
                 margin: 30px;
                 display: none;
                 border-color: blueviolet;
+            }
+            .players_choose_button {
+                width: 100%;
+                height: 225px;
+                display: block
             }
             .player {
                 position: absolute;
@@ -77,18 +72,31 @@
                 display: none;
                 margin: 30px;
             }
+            .inline_block {
+                display: inline-block;
+            }
+            .controls_block { width: 300px; }
+            .field_block { width: 975px; }
         </style>
     </head>
     <body>
 
         <div>
-            <input id="players_choose_button_2" class="players_choose_button" type="button" value="2 players" style="background-color:greenyellow" onclick="start_game(2);" >
-            <input id="players_choose_button_3" class="players_choose_button" type="button" value="3 players" style="background-color:yellow"      onclick="start_game(3);" >
-            <input id="players_choose_button_4" class="players_choose_button" type="button" value="4 players" style="background-color:red"         onclick="start_game(4);" >
+            <input id="players_choose_button_2" class="players_choose_button" type="button" value="2 players" style="background-color:greenyellow" onclick="choose_max_score(2);" >
+            <input id="players_choose_button_3" class="players_choose_button" type="button" value="3 players" style="background-color:yellow"      onclick="choose_max_score(3);" >
+            <input id="players_choose_button_4" class="players_choose_button" type="button" value="4 players" style="background-color:red"         onclick="choose_max_score(4);" >
+        </div>
+
+        <div id ='choose_max_score_text'>
+
         </div>
 
 
-      
+        <div>
+            <input id ='max_score_choose_window' type="text" placeholder="please write how many points do you want to play" style="width: 100%; height: 100px; display: none"/>
+            <input type="button" value="ok" onclick="check_normal_number();"/>
+        </div>
+
 
         <div class ="inline_block field_block">
             <div id="field" class="field">
@@ -138,7 +146,7 @@
                 shot: NUMLOCK ENTER<br>
             </div>
             <div id="control_of_the_player4" class="controles_of_the_players">
-                 Player 4: <br>
+                Player 4: <br>
                 right: L<br>
                 left: J<br>
                 down: K<br>
@@ -163,9 +171,11 @@
         </div>
         <script>
 
+            var players = 0;
             var keys = {};
             var tanks = {};
             var bullets = [];
+            var max_score = 1;
 
 
             var key_mapping = {
@@ -194,6 +204,23 @@
                 98: {player_name: 'player3', action: 'bottom'}
             };
 
+            function choose_max_score(for_start_game) {
+                for (var i = 2; i <= 4; i++) {
+                    document.getElementById("players_choose_button_" + i).style = "display: none";
+                }
+                document.getElementById('max_score_choose_window').style = "display: block; width: 100%; height: 100px";
+            players = for_start_game;
+            }
+            function check_normal_number() {
+                var value = document.getElementById('max_score_choose_window').value;
+                if (value >= 999) {
+                    return false;
+                }
+                if (value <= 0) {
+                    return false;
+                }
+                max_score = value;
+            }
             function place_bullet_near_barrel(player_name, bullet) {
                 var tank = tanks[player_name].tank;
                 var tanks_pos_left = tank.offsetLeft;
@@ -248,13 +275,10 @@
                 set_key_pressed(event.keyCode, false);
             };
 
-            function start_game(players) {
+            function start_game() {
                 document.getElementById("field").style = "display: block";
                 console.log("игра началась с " + players + " игроками");
 
-                for (var i = 2; i <= 4; i++) {
-                    document.getElementById("players_choose_button_" + i).style = "display: none";
-                }
 
                 for (var i = 1; i <= players; i++) {
                     var tank = document.getElementById("player" + i);
