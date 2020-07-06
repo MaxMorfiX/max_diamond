@@ -206,7 +206,7 @@
                 98: {player_name: 'player3', action: 'bottom'}
             };
             function win_window(player_name) {
-                for (var i=1; i <= 4; i++) {
+                for (var i = 1; i <= 4; i++) {
                     document.getElementById("control_of_the_player" + i).style = 'display: none';
                 }
                 document.getElementById("field").style = 'display: none';
@@ -223,7 +223,7 @@
                 document.getElementById('input_max_number_block').style.display = "block";
                 var number_input = document.getElementById('max_score_choose_window');
                 number_input.focus();
-                number_input.addEventListener("keyup", function(event) {
+                number_input.addEventListener("keyup", function (event) {
                     console.log(event);
 
                     if (event.key === "Enter") {
@@ -427,8 +427,9 @@
                     check_tanks_collisions(curr_bullet);
                 }
 
-
-                setTimeout(move_bullets, TIMEOUT_BETWEEN_HANDLING_BULLETS);
+                if (!game_win) {
+                    setTimeout(move_bullets, TIMEOUT_BETWEEN_HANDLING_BULLETS);
+                }
             }
 
 
