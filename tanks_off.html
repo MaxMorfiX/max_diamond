@@ -77,6 +77,12 @@
             }
             .controls_block { width: 300px; }
             .field_block { width: 975px; }
+            #win_window {
+                color: black;
+                width: 100%;
+                height: 100%;
+                display: none;
+            }
         </style>
     </head>
     <body>
@@ -113,8 +119,12 @@
         </div>
 
 
+        <div id = "win_window">
+            player <br>
+            win!!!
+        </div>
 
-        <div class ="inline_block controls_block">
+        <div id = controls_block class ="inline_block controls_block">
 
             <div id="control_of_the_player1" class="controles_of_the_players">
                 Player 1: <br>
@@ -165,7 +175,7 @@
             0
         </div>
         <script>
-
+            var game_win = false;
             var players = 0;
             var keys = {};
             var tanks = {};
@@ -198,14 +208,32 @@
                 101: {player_name: 'player3', action: 'top'},
                 98: {player_name: 'player3', action: 'bottom'}
             };
-
+            function win_window(player_name) {
+                document.getElementById("controls_block").style = 'display: none';
+                switch (player_name) {
+                    case "player1":
+                        document.getElementById("win_window").innerHTML = 'PLAYER 1 \n\ WIN!!!';
+                        break;
+                    case "player2":
+                        document.getElementById("win_window").innerHTML = 'PLAYER 2 \n\ WIN!!!';
+                        break;
+                    case "player3":
+                        document.getElementById("win_window").innerHTML = 'PLAYER 3 \n\ WIN!!!';
+                        break;
+                    case "player4":
+                        document.getElementById("win_window").innerHTML = 'PLAYER 4 \n\ WIN!!!';
+                        break;
+                }
+                document.getElementById("win_window").style = 'display: block';
+                game_win = true;
+            }
             function add_a_chooser_of_max_score(for_start_game) {
                 for (var i = 2; i <= 4; i++) {
                     document.getElementById("players_choose_button_" + i).style = "display: none";
                 }
                 document.getElementById('max_score_choose_window').style = "display: block; width: 100%; height: 100px";
                 document.getElementById("button_ok").style = "display: block";
-            players = for_start_game;
+                players = for_start_game;
             }
             function choose_max_score() {
 //                console.log(1);
@@ -358,12 +386,14 @@
                     if (bullet_positionX <= tank_right) {
                         if (bullet_positionY >= tank_top) {
                             if (bullet_positionY <= tank_bottom) {
-                                var player_id = tank.tank.id;
 
                                 var count_owner = document.getElementById('score_' + owner).textContent;
                                 count_owner = parseInt(count_owner) + 1;
                                 document.getElementById('score_' + owner).innerHTML = count_owner;
 
+                                if (count_owner >= max_score) {
+                                    win_window(owner);
+                                }
                                 return false;
                             }
                         }
@@ -489,8 +519,9 @@
                         document.getElementById(player_name).style.top = (posTop + step) + "px";
                     }
                 }
-
-                setTimeout(handle_pressed_keys, TIMEOUT_BETWEEN_HANDLING);
+                if (game_win === false) {
+                    setTimeout(handle_pressed_keys, TIMEOUT_BETWEEN_HANDLING);
+                }
             }
         </script>
 
