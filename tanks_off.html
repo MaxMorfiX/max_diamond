@@ -93,9 +93,12 @@
             <input id="players_choose_button_4" class="players_choose_button" type="button" value="4 players" style="background-color:red"         onclick="add_a_chooser_of_max_score(4);" >
         </div>
 
-        <div>
-            <input id ='max_score_choose_window' type="text" placeholder="please write how many points do you want to play (from 1 to 999)" style="width: 100%; height: 100px; display: none"/>
-            <input id = button_ok type="button" value="ok" onclick="choose_max_score();" style="display: none"/>
+        <div id="input_max_number_block" style="text-align: center; display: none; margin-top: 50px;">
+            <input id ='max_score_choose_window' type="number"
+                   placeholder="please write how many points do you want to play (from 1 to 999)"
+                   style="font-size: 20px; width: 700px; height: 30px; padding: 5px 10px; margin-bottom: 10px;"
+                   />
+            <input id = "button_ok" type="button" value="ok" onclick="choose_max_score();" style="width: 100px; height: 44px;"/>
         </div>
 
 
@@ -182,7 +185,6 @@
             var bullets = [];
             var max_score = 1;
 
-
             var key_mapping = {
                 191: {player_name: 'player1', action: 'bullet'},
                 37: {player_name: 'player1', action: 'left'},
@@ -210,20 +212,8 @@
             };
             function win_window(player_name) {
                 document.getElementById("controls_block").style = 'display: none';
-                switch (player_name) {
-                    case "player1":
-                        document.getElementById("win_window").innerHTML = 'PLAYER 1 \n\ WIN!!!';
-                        break;
-                    case "player2":
-                        document.getElementById("win_window").innerHTML = 'PLAYER 2 \n\ WIN!!!';
-                        break;
-                    case "player3":
-                        document.getElementById("win_window").innerHTML = 'PLAYER 3 \n\ WIN!!!';
-                        break;
-                    case "player4":
-                        document.getElementById("win_window").innerHTML = 'PLAYER 4 \n\ WIN!!!';
-                        break;
-                }
+                var player_name = tanks[player_name].name;
+                document.getElementById("win_window").innerHTML = player_name + '<br> WIN!!!';
                 document.getElementById("win_window").style = 'display: block';
                 game_win = true;
             }
@@ -231,17 +221,28 @@
                 for (var i = 2; i <= 4; i++) {
                     document.getElementById("players_choose_button_" + i).style = "display: none";
                 }
-                document.getElementById('max_score_choose_window').style = "display: block; width: 100%; height: 100px";
-                document.getElementById("button_ok").style = "display: block";
+                document.getElementById('input_max_number_block').style.display = "block";
+                var number_input = document.getElementById('max_score_choose_window');
+                number_input.focus();
+                number_input.addEventListener("keyup", function(event) {
+                    console.log(event);
+
+                    if (event.key === "Enter") {
+                        choose_max_score();
+                    }
+                });
+
                 players = for_start_game;
             }
             function choose_max_score() {
 //                console.log(1);
                 var value = document.getElementById('max_score_choose_window').value;
                 if (value >= 1000) {
+                    alert("Too big number!");
                     return false;
                 }
                 if (value <= 0) {
+                    alert("Too small number!");
                     return false;
                 }
 //                console.log(2);
@@ -303,8 +304,7 @@
             };
 
             function start_game() {
-                document.getElementById("max_score_choose_window").style = "display: none";
-                document.getElementById("button_ok").style = "display: none";
+                document.getElementById("input_max_number_block").style = "display: none";
                 document.getElementById("field").style = "display: block";
                 console.log("игра началась с " + players + " игроками");
                 console.log(max_score);
@@ -315,6 +315,8 @@
                     var score_players = document.getElementById("score_player" + i);
                     tank.style = `background:url("tanks_off/${i}.png"); display: block`;
                     score_players.style = 'display: block';
+                    var player_id = "player" + i;
+                    tanks[player_id] = {tank: document.getElementById(player_id), rotation: "top", name: "PLAYER " + i};
                 }
                 for (var i = 1; i <= players; i++) {
                     document.getElementById("control_of_the_player" + i).style = "display: block";
@@ -323,11 +325,6 @@
                 document.getElementById("player2").style.bottom = '0px';
                 document.getElementById("player4").style.right = "0px";
                 document.getElementById("player4").style.bottom = "0px";
-
-                tanks["player1"] = {tank: document.getElementById("player1"), rotation: "top"};
-                tanks["player2"] = {tank: document.getElementById("player2"), rotation: "top"};
-                tanks["player3"] = {tank: document.getElementById("player3"), rotation: "top"};
-                tanks["player4"] = {tank: document.getElementById("player4"), rotation: "top"};
 
                 handle_pressed_keys();
                 move_bullets();
@@ -519,7 +516,7 @@
                         document.getElementById(player_name).style.top = (posTop + step) + "px";
                     }
                 }
-                if (game_win === false) {
+                if (!game_win) {
                     setTimeout(handle_pressed_keys, TIMEOUT_BETWEEN_HANDLING);
                 }
             }
