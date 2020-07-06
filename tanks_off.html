@@ -52,12 +52,15 @@
             }
             .score_of_the_players {
                 margin-left: 30px;
-                margin-top: 10px;
-                border: 5px black;
+                margin-top: 5px;
                 display: none;
+                font-size: 20px;
+                padding: 10px;
+                width: 30px;
             }
             #score_player1 {
                 background-color: #3d46cd;
+                color: white;
             }
             #score_player2 {
                 background-color: #1db34a;
@@ -70,7 +73,7 @@
             }
             .controles_of_the_players {
                 display: none;
-                margin: 30px;
+                margin: 10px 0px 0px 30px;
             }
             .inline_block {
                 display: inline-block;
@@ -102,7 +105,7 @@
         </div>
 
 
-        <div class ="inline_block field_block">
+        <div class ="inline_block field_block" >
             <div id="field" class="field">
 
                 <div id="player1" class="player">
@@ -127,8 +130,9 @@
             win!!!
         </div>
 
-        <div id = controls_block class ="inline_block controls_block">
+        <div id = "controls_block" class ="inline_block controls_block">
 
+            <div id="score_player1" class="score_of_the_players">0</div>
             <div id="control_of_the_player1" class="controles_of_the_players">
                 Player 1: <br>
                 right: RIGHT<br>
@@ -137,6 +141,7 @@
                 up: UP<br>
                 shot: / ?<br>
             </div>
+            <div id="score_player2" class="score_of_the_players">0</div>
             <div id="control_of_the_player2" class="controles_of_the_players">
                 Player 2:<br>
                 right: D<br>
@@ -145,6 +150,7 @@
                 up: W<br>
                 shot: 1<br>
             </div>
+            <div id="score_player3" class="score_of_the_players">0</div>
             <div id="control_of_the_player3" class="controles_of_the_players">
                 Player 3: <br>
                 right: NUMLOCK 3<br>
@@ -153,6 +159,7 @@
                 up: NUMLOCK 5<br>
                 shot: NUMLOCK ENTER<br>
             </div>
+            <div id="score_player4" class="score_of_the_players">0</div>
             <div id="control_of_the_player4" class="controles_of_the_players">
                 Player 4: <br>
                 right: L<br>
@@ -165,25 +172,13 @@
         </div>
 
 
-        <div id="score_player1" class="score_of_the_players">
-            0
-        </div>
-        <div id="score_player2" class="score_of_the_players">
-            0
-        </div>
-        <div id="score_player3" class="score_of_the_players">
-            0
-        </div>
-        <div id="score_player4" class="score_of_the_players">
-            0
-        </div>
         <script>
             var game_win = false;
             var players = 0;
             var keys = {};
             var tanks = {};
             var bullets = [];
-            var max_score = 1;
+            var max_score = 15;
 
             var key_mapping = {
                 191: {player_name: 'player1', action: 'bullet'},
@@ -211,7 +206,11 @@
                 98: {player_name: 'player3', action: 'bottom'}
             };
             function win_window(player_name) {
-                document.getElementById("controls_block").style = 'display: none';
+                for (var i=1; i <= 4; i++) {
+                    document.getElementById("control_of_the_player" + i).style = 'display: none';
+                }
+                document.getElementById("field").style = 'display: none';
+
                 var player_name = tanks[player_name].name;
                 document.getElementById("win_window").innerHTML = player_name + '<br> WIN!!!';
                 document.getElementById("win_window").style = 'display: block';
@@ -235,18 +234,10 @@
                 players = for_start_game;
             }
             function choose_max_score() {
-//                console.log(1);
                 var value = document.getElementById('max_score_choose_window').value;
-                if (value >= 1000) {
-                    alert("Too big number!");
-                    return false;
+                if (value < 1000 && value > 0) {
+                    max_score = value;
                 }
-                if (value <= 0) {
-                    alert("Too small number!");
-                    return false;
-                }
-//                console.log(2);
-                max_score = value;
                 start_game()
             }
             function place_bullet_near_barrel(player_name, bullet) {
@@ -309,15 +300,18 @@
                 console.log("игра началась с " + players + " игроками");
                 console.log(max_score);
 
-
                 for (var i = 1; i <= players; i++) {
                     var tank = document.getElementById("player" + i);
                     var score_players = document.getElementById("score_player" + i);
                     tank.style = `background:url("tanks_off/${i}.png"); display: block`;
                     score_players.style = 'display: block';
+                }
+
+                for (var i = 1; i <= 4; i++) {
                     var player_id = "player" + i;
                     tanks[player_id] = {tank: document.getElementById(player_id), rotation: "top", name: "PLAYER " + i};
                 }
+
                 for (var i = 1; i <= players; i++) {
                     document.getElementById("control_of_the_player" + i).style = "display: block";
                 }
