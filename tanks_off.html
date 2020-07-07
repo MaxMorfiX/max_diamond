@@ -210,12 +210,15 @@
             function change_game_win() {
                 if (mode_of_the_max_number === "by max score") {
                     mode_of_the_max_number = "by time";
+                    var input_max_number_block = document.getElementById("mode_of_the_game_win");
+                    input_max_number_block.placeholder = "please whrite how many seconds do you want to play";
+                    document.getElementById("mode_of_the_game_win") = input_max_number_block;
                 }
-                if (mode_of_the_max_number === "by time") {
+                else {
                     mode_of_the_max_number = "by max score";
                 }
-                document.getElementById("mode_of_the_game_win").innerHTML = mode_of_the_max_number;
-                console.log("change_game_win true!");
+                document.getElementById("mode_of_the_game_win").value = mode_of_the_max_number;
+//                console.log("change_game_win true!");
             }
             function win_window() {
                 for (var i = 1; i <= 4; i++) {
