@@ -102,6 +102,7 @@
                    style="font-size: 20px; width: 700px; height: 30px; padding: 5px 10px; margin-bottom: 10px;"
                    />
             <input id = "button_ok" type="button" value="ok" onclick="choose_max_score();" style="width: 100px; height: 44px;"/>
+            <input id = "mode_of_the_game_win" type="button" value="by max score" onclick="change_game_win();" style="width: 100px; height: 44px;"/>
         </div>
 
 
@@ -179,6 +180,7 @@
             var tanks = {};
             var bullets = [];
             var max_score = 15;
+            var mode_of_the_max_number = "by max score";
 
             var key_mapping = {
                 191: {player_name: 'player1', action: 'bullet'},
@@ -205,7 +207,17 @@
                 101: {player_name: 'player3', action: 'top'},
                 98: {player_name: 'player3', action: 'bottom'}
             };
-            function win_window(player_name) {
+            function change_game_win() {
+                if (mode_of_the_max_number === "by max score") {
+                    mode_of_the_max_number = "by time";
+                }
+                if (mode_of_the_max_number === "by time") {
+                    mode_of_the_max_number = "by max score";
+                }
+                document.getElementById("mode_of_the_game_win").innerHTML = mode_of_the_max_number;
+                console.log("change_game_win true!");
+            }
+            function win_window() {
                 for (var i = 1; i <= 4; i++) {
                     document.getElementById("control_of_the_player" + i).style = 'display: none';
                 }
@@ -383,7 +395,7 @@
                                 document.getElementById('score_' + owner).innerHTML = count_owner;
 
                                 if (count_owner >= max_score) {
-                                    win_window(owner);
+                                    win_window();
                                 }
                                 return false;
                             }
