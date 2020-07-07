@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>tanks_off</title>
+        <!--<link rel="icon" href="tanks_off/3.png">-->
+        <title>tanks_off 1.0</title>
         <style>
             .field {
                 position: relative;
@@ -213,23 +214,36 @@
 //                console.log("change_game_win true!");
                     document.getElementById("max_score_choose_window").placeholder = "please whrite how many seconds do you want to play (from 1 to 999)";
 //                console.log(document.getElementById('mode_of_the_game_win').placeholder);
-                }
-                else {
+                } else {
                     mode_of_the_max_number = "by max score";
                     document.getElementById("max_score_choose_window").placeholder = "please whrite how many points do you want to play (from 1 to 999)";
                 }
                 document.getElementById("mode_of_the_game_win").value = mode_of_the_max_number;
             }
+
+            function is_there_a_winner() {
+                
+            }
+
             function win_window() {
                 for (var i = 1; i <= 4; i++) {
                     document.getElementById("control_of_the_player" + i).style = 'display: none';
                 }
                 document.getElementById("field").style = 'display: none';
 
-                var player_name = tanks[player_name].name;
-                document.getElementById("win_window").innerHTML = player_name + '<br> WIN!!!';
-                document.getElementById("win_window").style = 'display: block';
-                game_win = true;
+                if (mode_of_the_max_number === "by max score") {
+                    var player_name = tanks[player_name].name;
+                    document.getElementById("win_window").innerHTML = player_name + '<br> WIN!!!';
+                    document.getElementById("win_window").style = 'display: block';
+                    game_win = true;
+                }
+                if (mode_of_the_max_number === "by time") {
+                    if (is_there_a_winner()) {
+                        game_win = true;
+                    } else {
+                        // запуск 
+                    }
+                }
             }
             function add_a_chooser_of_max_score(for_start_game) {
                 for (var i = 2; i <= 4; i++) {
@@ -239,7 +253,7 @@
                 var number_input = document.getElementById('max_score_choose_window');
                 number_input.focus();
                 number_input.addEventListener("keyup", function (event) {
-                    console.log(event);
+//                    console.log(event);
 
                     if (event.key === "Enter") {
                         choose_max_score();
@@ -253,7 +267,7 @@
                 if (value < 1000 && value > 0) {
                     max_score = value;
                 }
-                start_game()
+                start_game();
             }
             function place_bullet_near_barrel(player_name, bullet) {
                 var tank = tanks[player_name].tank;
@@ -334,6 +348,7 @@
                 document.getElementById("player2").style.bottom = '0px';
                 document.getElementById("player4").style.right = "0px";
                 document.getElementById("player4").style.bottom = "0px";
+                setTimeout(win_window, max_score * 1000);
 
                 handle_pressed_keys();
                 move_bullets();
@@ -372,7 +387,7 @@
                     var f_ok = check_one_tank_collision(bullet, tanks[index], bullet.owner);
                     if (!f_ok) {
                         bullet.to_delete = true;
-                        console.log('Tank bum!');
+//                        console.log('Tank bum!');
                         return false;
                     }
                 }
@@ -396,9 +411,10 @@
                                 var count_owner = document.getElementById('score_' + owner).textContent;
                                 count_owner = parseInt(count_owner) + 1;
                                 document.getElementById('score_' + owner).innerHTML = count_owner;
-
-                                if (count_owner >= max_score) {
-                                    win_window();
+                                if (mode_of_the_max_number === "by max score") {
+                                    if (count_owner >= max_score) {
+                                        win_window();
+                                    }
                                 }
                                 return false;
                             }
