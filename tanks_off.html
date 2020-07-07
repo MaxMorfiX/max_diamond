@@ -98,7 +98,7 @@
 
         <div id="input_max_number_block" style="text-align: center; display: none; margin-top: 50px;">
             <input id ='max_score_choose_window' type="number"
-                   placeholder="please write how many points do you want to play (from 1 to 999)"
+                   placeholder="please whrite how many points do you want to play (from 1 to 999)"
                    style="font-size: 20px; width: 700px; height: 30px; padding: 5px 10px; margin-bottom: 10px;"
                    />
             <input id = "button_ok" type="button" value="ok" onclick="choose_max_score();" style="width: 100px; height: 44px;"/>
@@ -210,15 +210,15 @@
             function change_game_win() {
                 if (mode_of_the_max_number === "by max score") {
                     mode_of_the_max_number = "by time";
-                    var input_max_number_block = document.getElementById("mode_of_the_game_win");
-                    input_max_number_block.placeholder = "please whrite how many seconds do you want to play";
-                    document.getElementById("mode_of_the_game_win") = input_max_number_block;
+//                console.log("change_game_win true!");
+                    document.getElementById("max_score_choose_window").placeholder = "please whrite how many seconds do you want to play (from 1 to 999)";
+//                console.log(document.getElementById('mode_of_the_game_win').placeholder);
                 }
                 else {
                     mode_of_the_max_number = "by max score";
+                    document.getElementById("max_score_choose_window").placeholder = "please whrite how many points do you want to play (from 1 to 999)";
                 }
                 document.getElementById("mode_of_the_game_win").value = mode_of_the_max_number;
-//                console.log("change_game_win true!");
             }
             function win_window() {
                 for (var i = 1; i <= 4; i++) {
