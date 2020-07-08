@@ -227,15 +227,18 @@
                 var score_player2 = document.getElementById("score_player2").innerHTML;
                 var score_player3 = document.getElementById("score_player3").innerHTML;
                 var score_player4 = document.getElementById("score_player4").innerHTML;
+                    console.log("j");
                 if (score_player1 !== score_player2 &&
                         score_player1 !== score_player3 &&
                         score_player1 !== score_player4 &&
                         score_player2 !== score_player3 &&
                         score_player2 !== score_player4 &&
                         score_player3 !== score_player4) {
-                    winner = Math.max(score_player1, score_player2, score_player3, score_player4);
+                    console.log("jdfs");
+                    winner = Math.max(parseInd(score_player1),parseInd(score_player2),parseInd(score_player3),parseInd(score_player4));
                 }
                 else {
+                    console.log("jdfsÏèïðòï");
                     return true;
                 }
             }
