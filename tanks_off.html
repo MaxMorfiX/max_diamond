@@ -235,29 +235,33 @@
                         score_player3 !== score_player4) {
                     winner = Math.max(score_player1, score_player2, score_player3, score_player4);
                 }
+                else {
+                    return true;
+                }
             }
 
-            function win_window(owner) {
+            function win_window() {
                 for (var i = 1; i <= 4; i++) {
                     document.getElementById("control_of_the_player" + i).style = 'display: none';
                 }
                 document.getElementById("field").style = 'display: none';
 
+
+
+
                 if (mode_of_the_max_number === "by max score") {
-//                    console.log("game_win");
-                    var player_name = tanks[owner].name;
+                    game_win = true;
+                    var player_name = tanks[winner].name;
                     document.getElementById("win_window").innerHTML = player_name + '<br> WIN!!!';
                     document.getElementById("win_window").style = 'display: block';
-//                    console.log(game_win);
-                    game_win = true;
-//                    console.log(game_win);
                 }
+
+
+
+
                 if (mode_of_the_max_number === "by time") {
-                    if (is_there_a_winner()) {
                         game_win = true;
-                    } else {
-                        // запуск 
-                    }
+                        is_there_a_winner();
                 }
             }
             function add_a_chooser_of_max_score(for_start_game) {
@@ -268,7 +272,6 @@
                 var number_input = document.getElementById('max_score_choose_window');
                 number_input.focus();
                 number_input.addEventListener("keyup", function (event) {
-//                    console.log(event);
 
                     if (event.key === "Enter") {
                         choose_max_score();
@@ -363,8 +366,9 @@
                 document.getElementById("player2").style.bottom = '0px';
                 document.getElementById("player4").style.right = "0px";
                 document.getElementById("player4").style.bottom = "0px";
-                setTimeout(win_window, max_score * 1000);
-
+                if (mode_of_the_max_number === "by time") {
+                    setTimeout(win_window, max_score * 1000);
+                }
                 handle_pressed_keys();
                 move_bullets();
             }
