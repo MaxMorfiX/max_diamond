@@ -180,7 +180,7 @@
             var keys = {};
             var tanks = {};
             var bullets = [];
-            var max_score = 15;
+            var max_score = 20;
             var mode_of_the_max_number = "by max score";
             var winner = "player";
 
@@ -235,7 +235,7 @@
                         score_player2 !== score_player4 &&
                         score_player3 !== score_player4) {
                     console.log("jdfs");
-                    winner = Math.max(parseInd(score_player1),parseInd(score_player2),parseInd(score_player3),parseInd(score_player4));
+                    winner = Math.max(parseInt(score_player1),parseInt(score_player2),parseInt(score_player3),parseInt(score_player4));
                 }
                 else {
                     console.log("jdfsÏèïðòï");
