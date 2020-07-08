@@ -182,6 +182,7 @@
             var bullets = [];
             var max_score = 15;
             var mode_of_the_max_number = "by max score";
+            var winner = "player";
 
             var key_mapping = {
                 191: {player_name: 'player1', action: 'bullet'},
@@ -222,20 +223,34 @@
             }
 
             function is_there_a_winner() {
-                
+                var score_player1 = document.getElementById(score_player1).innerHTML;
+                var score_player2 = document.getElementById(score_player2).innerHTML;
+                var score_player3 = document.getElementById(score_player3).innerHTML;
+                var score_player4 = document.getElementById(score_player4).innerHTML;
+                if (score_player1 !== score_player2 &&
+                        score_player1 !== score_player3 &&
+                        score_player1 !== score_player4 &&
+                        score_player2 !== score_player3 &&
+                        score_player2 !== score_player4 &&
+                        score_player3 !== score_player4) {
+                    winner = Math.max(score_player1, score_player2, score_player3, score_player4);
+                }
             }
 
-            function win_window() {
+            function win_window(owner) {
                 for (var i = 1; i <= 4; i++) {
                     document.getElementById("control_of_the_player" + i).style = 'display: none';
                 }
                 document.getElementById("field").style = 'display: none';
 
                 if (mode_of_the_max_number === "by max score") {
-                    var player_name = tanks[player_name].name;
+//                    console.log("game_win");
+                    var player_name = tanks[owner].name;
                     document.getElementById("win_window").innerHTML = player_name + '<br> WIN!!!';
                     document.getElementById("win_window").style = 'display: block';
+//                    console.log(game_win);
                     game_win = true;
+//                    console.log(game_win);
                 }
                 if (mode_of_the_max_number === "by time") {
                     if (is_there_a_winner()) {
@@ -413,6 +428,7 @@
                                 document.getElementById('score_' + owner).innerHTML = count_owner;
                                 if (mode_of_the_max_number === "by max score") {
                                     if (count_owner >= max_score) {
+                                        winner = owner;
                                         win_window();
                                     }
                                 }
