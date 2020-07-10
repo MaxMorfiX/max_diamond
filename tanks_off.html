@@ -227,36 +227,27 @@
                 var score_player2 = document.getElementById("score_player2").innerHTML;
                 var score_player3 = document.getElementById("score_player3").innerHTML;
                 var score_player4 = document.getElementById("score_player4").innerHTML;
-                var number_score_of_the_winner = 0;
-                var how_much_winners = 0;
-                console.log("j");
-                if (players === 2){
-                number_score_of_the_winner = Math.max(parseInt(score_player1), parseInt(score_player2));
+                    console.log("j");
+                if (score_player1 !== score_player2 &&
+                        score_player1 !== score_player3 &&
+                        score_player1 !== score_player4 &&
+                        score_player2 !== score_player3 &&
+                        score_player2 !== score_player4 &&
+                        score_player3 !== score_player4) {
+                    console.log("jdfs");
+                    winner = Math.max(parseInt(score_player1),parseInt(score_player2),parseInt(score_player3),parseInt(score_player4));
                 }
-                if (players === 3){
-                number_score_of_the_winner = Math.max(parseInt(score_player1), parseInt(score_player2), parseInt(score_player3));
+                else {
+                    console.log("jdfsПипртп");
+                    return true;
                 }
-                if (players === 4){
-                number_score_of_the_winner = Math.max(parseInt(score_player1), parseInt(score_player2), parseInt(score_player3), parseInt(score_player4));
+            }
+
+            function win_window() {
+                for (var i = 1; i <= 4; i++) {
+                    document.getElementById("control_of_the_player" + i).style = 'display: none';
                 }
-                if (number_score_of_the_winner === score_player1){
-                    how_much_winners = parseInt(how_much_winners) + 1;
-                }
-                if (number_score_of_the_winner === score_player2){
-                    how_much_winners = parseInt(how_much_winners) + 1;
-                }
-                if (number_score_of_the_winner === score_player3){
-                    how_much_winners = parseInt(how_much_winners) + 1;
-                }
-                if (number_score_of_the_winner === score_player4){
-                    how_much_winners = parseInt(how_much_winners) + 1;
-                }
-                function win_window() {
-                    for (var i = 1; i <= 4; i++) {
-                        document.getElementById("control_of_the_player" + i).style = 'display: none';
-                    }
-                    document.getElementById("field").style = 'display: none';
-                }
+                document.getElementById("field").style = 'display: none';
 
 
 
@@ -272,268 +263,267 @@
 
 
                 if (mode_of_the_max_number === "by time") {
-                    game_win = true;
-                    is_there_a_winner();
+                        game_win = true;
+                        is_there_a_winner();
                 }
             }
-                function add_a_chooser_of_max_score(for_start_game) {
-                    for (var i = 2; i <= 4; i++) {
-                        document.getElementById("players_choose_button_" + i).style = "display: none";
-                    }
-                    document.getElementById('input_max_number_block').style.display = "block";
-                    var number_input = document.getElementById('max_score_choose_window');
-                    number_input.focus();
-                    number_input.addEventListener("keyup", function (event) {
-
-                        if (event.key === "Enter") {
-                            choose_max_score();
-                        }
-                    });
-
-                    players = for_start_game;
+            function add_a_chooser_of_max_score(for_start_game) {
+                for (var i = 2; i <= 4; i++) {
+                    document.getElementById("players_choose_button_" + i).style = "display: none";
                 }
-                function choose_max_score() {
-                    var value = document.getElementById('max_score_choose_window').value;
-                    if (value < 1000 && value > 0) {
-                        max_score = value;
+                document.getElementById('input_max_number_block').style.display = "block";
+                var number_input = document.getElementById('max_score_choose_window');
+                number_input.focus();
+                number_input.addEventListener("keyup", function (event) {
+
+                    if (event.key === "Enter") {
+                        choose_max_score();
                     }
-                    start_game();
+                });
+
+                players = for_start_game;
+            }
+            function choose_max_score() {
+                var value = document.getElementById('max_score_choose_window').value;
+                if (value < 1000 && value > 0) {
+                    max_score = value;
                 }
-                function place_bullet_near_barrel(player_name, bullet) {
-                    var tank = tanks[player_name].tank;
-                    var tanks_pos_left = tank.offsetLeft;
-                    var tanks_pos_top = tank.offsetTop;
-                    var current_rotation = tanks[player_name].rotation;
+                start_game();
+            }
+            function place_bullet_near_barrel(player_name, bullet) {
+                var tank = tanks[player_name].tank;
+                var tanks_pos_left = tank.offsetLeft;
+                var tanks_pos_top = tank.offsetTop;
+                var current_rotation = tanks[player_name].rotation;
 
-                    if (current_rotation === "left") {
-                        bullet.style.top = (tanks_pos_top + 12.5) + "px";
-                        bullet.style.left = (tanks_pos_left) + "px";
-                    }
-
-                    if (current_rotation === "right") {
-                        bullet.style.top = (tanks_pos_top + 12.5) + "px";
-                        bullet.style.left = (tanks_pos_left) + "px";
-                    }
-
-                    if (current_rotation === "top") {
-                        bullet.style.top = (tanks_pos_top) + "px";
-                        bullet.style.left = (tanks_pos_left + 17.5) + "px";
-                    }
-
-                    if (current_rotation === "bottom") {
-                        bullet.style.top = (tanks_pos_top) + "px";
-                        bullet.style.left = (tanks_pos_left + 17.5) + "px";
-                    }
+                if (current_rotation === "left") {
+                    bullet.style.top = (tanks_pos_top + 12.5) + "px";
+                    bullet.style.left = (tanks_pos_left) + "px";
                 }
 
-
-                function add_bullet(player_name) {
-
-                    var bullet = document.createElement("div");
-                    bullet.classList.add("bullet");
-                    bullet.classList.add(tanks[player_name].rotation);
-                    place_bullet_near_barrel(player_name, bullet);
-                    document.getElementById("field").appendChild(bullet);
-                    bullets.push({bullet: bullet, rotation: tanks[player_name].rotation, owner: player_name});
+                if (current_rotation === "right") {
+                    bullet.style.top = (tanks_pos_top + 12.5) + "px";
+                    bullet.style.left = (tanks_pos_left) + "px";
                 }
 
-                function set_key_pressed(code, pressed) {
-                    if (keys[code] === "ignore_keydown" && pressed) {
-                        return;
-                    }
-                    keys[code] = pressed;
+                if (current_rotation === "top") {
+                    bullet.style.top = (tanks_pos_top) + "px";
+                    bullet.style.left = (tanks_pos_left + 17.5) + "px";
+                }
+
+                if (current_rotation === "bottom") {
+                    bullet.style.top = (tanks_pos_top) + "px";
+                    bullet.style.left = (tanks_pos_left + 17.5) + "px";
+                }
+            }
+
+
+            function add_bullet(player_name) {
+
+                var bullet = document.createElement("div");
+                bullet.classList.add("bullet");
+                bullet.classList.add(tanks[player_name].rotation);
+                place_bullet_near_barrel(player_name, bullet);
+                document.getElementById("field").appendChild(bullet);
+                bullets.push({bullet: bullet, rotation: tanks[player_name].rotation, owner: player_name});
+            }
+
+            function set_key_pressed(code, pressed) {
+                if (keys[code] === "ignore_keydown" && pressed) {
+                    return;
+                }
+                keys[code] = pressed;
 //                console.log(keys);
+            }
+
+            document.onkeydown = function (event) {
+                set_key_pressed(event.keyCode, true);
+            };
+
+            document.onkeyup = function (event) {
+                set_key_pressed(event.keyCode, false);
+            };
+
+            function start_game() {
+                document.getElementById("input_max_number_block").style = "display: none";
+                document.getElementById("field").style = "display: block";
+                console.log("игра началась с " + players + " игроками");
+                console.log(max_score);
+
+                for (var i = 1; i <= players; i++) {
+                    var tank = document.getElementById("player" + i);
+                    var score_players = document.getElementById("score_player" + i);
+                    tank.style = `background:url("tanks_off/${i}.png"); display: block`;
+                    score_players.style = 'display: block';
                 }
 
-                document.onkeydown = function (event) {
-                    set_key_pressed(event.keyCode, true);
-                };
-
-                document.onkeyup = function (event) {
-                    set_key_pressed(event.keyCode, false);
-                };
-
-                function start_game() {
-                    document.getElementById("input_max_number_block").style = "display: none";
-                    document.getElementById("field").style = "display: block";
-                    console.log("игра началась с " + players + " игроками");
-                    console.log(max_score);
-
-                    for (var i = 1; i <= players; i++) {
-                        var tank = document.getElementById("player" + i);
-                        var score_players = document.getElementById("score_player" + i);
-                        tank.style = `background:url("tanks_off/${i}.png"); display: block`;
-                        score_players.style = 'display: block';
-                    }
-
-                    for (var i = 1; i <= 4; i++) {
-                        var player_id = "player" + i;
-                        tanks[player_id] = {tank: document.getElementById(player_id), rotation: "top", name: "PLAYER " + i};
-                    }
-
-                    for (var i = 1; i <= players; i++) {
-                        document.getElementById("control_of_the_player" + i).style = "display: block";
-                    }
-                    document.getElementById("player1").style.right = '0px';
-                    document.getElementById("player2").style.bottom = '0px';
-                    document.getElementById("player4").style.right = "0px";
-                    document.getElementById("player4").style.bottom = "0px";
-                    if (mode_of_the_max_number === "by time") {
-                        setTimeout(win_window, max_score * 1000);
-                    }
-                    handle_pressed_keys();
-                    move_bullets();
+                for (var i = 1; i <= 4; i++) {
+                    var player_id = "player" + i;
+                    tanks[player_id] = {tank: document.getElementById(player_id), rotation: "top", name: "PLAYER " + i};
                 }
+
+                for (var i = 1; i <= players; i++) {
+                    document.getElementById("control_of_the_player" + i).style = "display: block";
+                }
+                document.getElementById("player1").style.right = '0px';
+                document.getElementById("player2").style.bottom = '0px';
+                document.getElementById("player4").style.right = "0px";
+                document.getElementById("player4").style.bottom = "0px";
+                if (mode_of_the_max_number === "by time") {
+                    setTimeout(win_window, max_score * 1000);
+                }
+                handle_pressed_keys();
+                move_bullets();
+            }
 
 //            start_game(4); // temp while developing
 
-                function check_wall_collision(curr_bullet) {
-                    var positionX = curr_bullet.bullet.offsetLeft;
-                    var positionY = curr_bullet.bullet.offsetTop;
-                    if (positionX <= 0) {
+            function check_wall_collision(curr_bullet) {
+                var positionX = curr_bullet.bullet.offsetLeft;
+                var positionY = curr_bullet.bullet.offsetTop;
+                if (positionX <= 0) {
 //                    console.log("left BUM!");
-                        curr_bullet.to_delete = true;
-                    }
-                    if (positionX >= 950) {
-//                    console.log("right BUM!");
-                        curr_bullet.to_delete = true;
-                    }
-                    if (positionY <= 0) {
-//                    console.log("top BUM!");
-                        curr_bullet.to_delete = true;
-                    }
-                    if (positionY >= 630) {
-//                    console.log("bottom BUM!");
-                        curr_bullet.to_delete = true;
-                    }
-
+                    curr_bullet.to_delete = true;
                 }
-                function check_tanks_collisions(bullet) {
-                    for (var index in tanks) {
-                        if (bullet.owner === tanks[index].tank.id) {
-                            continue;
-                        }
+                if (positionX >= 950) {
+//                    console.log("right BUM!");
+                    curr_bullet.to_delete = true;
+                }
+                if (positionY <= 0) {
+//                    console.log("top BUM!");
+                    curr_bullet.to_delete = true;
+                }
+                if (positionY >= 630) {
+//                    console.log("bottom BUM!");
+                    curr_bullet.to_delete = true;
+                }
+
+            }
+            function check_tanks_collisions(bullet) {
+                for (var index in tanks) {
+                    if (bullet.owner === tanks[index].tank.id) {
+                        continue;
+                    }
 
 //                    console.log(33);
-                        var f_ok = check_one_tank_collision(bullet, tanks[index], bullet.owner);
-                        if (!f_ok) {
-                            bullet.to_delete = true;
+                    var f_ok = check_one_tank_collision(bullet, tanks[index], bullet.owner);
+                    if (!f_ok) {
+                        bullet.to_delete = true;
 //                        console.log('Tank bum!');
-                            return false;
-                        }
+                        return false;
                     }
-                    return true;
                 }
+                return true;
+            }
 
-                function check_one_tank_collision(bullet, tank, owner) {
-                    var tank_left = tank.tank.offsetLeft;
-                    var tank_right = tank_left + 35;
-                    var tank_top = tank.tank.offsetTop;
-                    var tank_bottom = tank_top + 35;
-                    var bullet_positionX = bullet.bullet.offsetLeft;
-                    var bullet_positionY = bullet.bullet.offsetTop;
+            function check_one_tank_collision(bullet, tank, owner) {
+                var tank_left = tank.tank.offsetLeft;
+                var tank_right = tank_left + 35;
+                var tank_top = tank.tank.offsetTop;
+                var tank_bottom = tank_top + 35;
+                var bullet_positionX = bullet.bullet.offsetLeft;
+                var bullet_positionY = bullet.bullet.offsetTop;
 //                console.log(`tank: left - ${tank_left}, top - ${tank_top}, BULLET: x - ${bullet_positionX}, y - ${bullet_positionY}, `);
 
-                    if (bullet_positionX >= tank_left) {
-                        if (bullet_positionX <= tank_right) {
-                            if (bullet_positionY >= tank_top) {
-                                if (bullet_positionY <= tank_bottom) {
+                if (bullet_positionX >= tank_left) {
+                    if (bullet_positionX <= tank_right) {
+                        if (bullet_positionY >= tank_top) {
+                            if (bullet_positionY <= tank_bottom) {
 
-                                    var count_owner = document.getElementById('score_' + owner).textContent;
-                                    count_owner = parseInt(count_owner) + 1;
-                                    document.getElementById('score_' + owner).innerHTML = count_owner;
-                                    if (mode_of_the_max_number === "by max score") {
-                                        if (count_owner >= max_score) {
-                                            winner = owner;
-                                            win_window();
-                                        }
+                                var count_owner = document.getElementById('score_' + owner).textContent;
+                                count_owner = parseInt(count_owner) + 1;
+                                document.getElementById('score_' + owner).innerHTML = count_owner;
+                                if (mode_of_the_max_number === "by max score") {
+                                    if (count_owner >= max_score) {
+                                        winner = owner;
+                                        win_window();
                                     }
-                                    return false;
                                 }
+                                return false;
                             }
                         }
                     }
-
-                    return true;
                 }
 
-                function move_bullets() {
-                    const TIMEOUT_BETWEEN_HANDLING_BULLETS = 10;
-                    const BULLET_SPEED = 15;
+                return true;
+            }
 
-                    for (var i = bullets.length - 1; i >= 0; i--) {
-                        var curr_bullet = bullets[i];
-                        if (curr_bullet.to_delete) {
-                            curr_bullet.bullet.parentNode.removeChild(curr_bullet.bullet);
-                            bullets.splice(i, 1);
-                            continue;
-                        }
+            function move_bullets() {
+                const TIMEOUT_BETWEEN_HANDLING_BULLETS = 10;
+                const BULLET_SPEED = 15;
 
-                        var dx = 0;
-                        var dy = 0;
-                        if (curr_bullet.rotation === "left") {
-                            dx = -BULLET_SPEED;
-                        }
-                        if (curr_bullet.rotation === "right") {
-                            dx = +BULLET_SPEED;
-                        }
-                        if (curr_bullet.rotation === "top") {
-                            dy = -BULLET_SPEED;
-                        }
-                        if (curr_bullet.rotation === "bottom") {
-                            dy = +BULLET_SPEED;
-                        }
-
-                        curr_bullet.bullet.style.left = (curr_bullet.bullet.offsetLeft + dx) + "px";
-                        curr_bullet.bullet.style.top = (curr_bullet.bullet.offsetTop + dy) + "px";
-                        check_wall_collision(curr_bullet);
-                        check_tanks_collisions(curr_bullet);
+                for (var i = bullets.length - 1; i >= 0; i--) {
+                    var curr_bullet = bullets[i];
+                    if (curr_bullet.to_delete) {
+                        curr_bullet.bullet.parentNode.removeChild(curr_bullet.bullet);
+                        bullets.splice(i, 1);
+                        continue;
                     }
 
-                    if (!game_win) {
-                        setTimeout(move_bullets, TIMEOUT_BETWEEN_HANDLING_BULLETS);
+                    var dx = 0;
+                    var dy = 0;
+                    if (curr_bullet.rotation === "left") {
+                        dx = -BULLET_SPEED;
                     }
+                    if (curr_bullet.rotation === "right") {
+                        dx = +BULLET_SPEED;
+                    }
+                    if (curr_bullet.rotation === "top") {
+                        dy = -BULLET_SPEED;
+                    }
+                    if (curr_bullet.rotation === "bottom") {
+                        dy = +BULLET_SPEED;
+                    }
+
+                    curr_bullet.bullet.style.left = (curr_bullet.bullet.offsetLeft + dx) + "px";
+                    curr_bullet.bullet.style.top = (curr_bullet.bullet.offsetTop + dy) + "px";
+                    check_wall_collision(curr_bullet);
+                    check_tanks_collisions(curr_bullet);
                 }
 
+                if (!game_win) {
+                    setTimeout(move_bullets, TIMEOUT_BETWEEN_HANDLING_BULLETS);
+                }
+            }
 
-                    const TIMEOUT_BETWEEN_HANDLING = 10;
-                function handle_pressed_keys() {
-                    var step = 2;
+
+            function handle_pressed_keys() {
+                const TIMEOUT_BETWEEN_HANDLING = 10;
+                var step = 2;
 //                console.log(posLeft);
 //                console.log(posTop);
-                    //alert(posLeft + ' ' + posTop);
+                //alert(posLeft + ' ' + posTop);
 
 
-                    for (var index in keys) {
-                        if (!keys[index] || keys[index] === "ignore_keydown") {
-                            continue;
-                        }
-
-                        if (!key_mapping[index]) {
-                            continue;
-                        }
-
-                        var key_data = key_mapping[index];
-                        switch (key_data.action) {
-                            case "bullet":
-                                keys[index] = "ignore_keydown";
-                                add_bullet(key_data.player_name);
-                                break;
-                            case "left":
-                                move_left(key_data.player_name);
-                                break;
-                            case "right":
-                                move_right(key_data.player_name);
-                                break;
-                            case "top":
-                                move_top(key_data.player_name);
-                                break;
-                            case "bottom":
-                                move_bottom(key_data.player_name);
-                                break;
-                        }
-
+                for (var index in keys) {
+                    if (!keys[index] || keys[index] === "ignore_keydown") {
+                        continue;
                     }
+
+                    if (!key_mapping[index]) {
+                        continue;
+                    }
+
+                    var key_data = key_mapping[index];
+                    switch (key_data.action) {
+                        case "bullet":
+                            keys[index] = "ignore_keydown";
+                            add_bullet(key_data.player_name);
+                            break;
+                        case "left":
+                            move_left(key_data.player_name);
+                            break;
+                        case "right":
+                            move_right(key_data.player_name);
+                            break;
+                        case "top":
+                            move_top(key_data.player_name);
+                            break;
+                        case "bottom":
+                            move_bottom(key_data.player_name);
+                            break;
+                    }
+
                 }
 
                 function move_right(player_name) {
@@ -578,7 +568,7 @@
                 if (!game_win) {
                     setTimeout(handle_pressed_keys, TIMEOUT_BETWEEN_HANDLING);
                 }
-            
+            }
         </script>
 
     </body>
