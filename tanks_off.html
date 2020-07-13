@@ -227,21 +227,31 @@
                 var score_player2 = document.getElementById("score_player2").innerHTML;
                 var score_player3 = document.getElementById("score_player3").innerHTML;
                 var score_player4 = document.getElementById("score_player4").innerHTML;
+                var number_score_of_the_winner = 0;
+                var how_much_winners = 0;
                 console.log("j");
-                if (score_player1 !== score_player2 &&
-                        score_player1 !== score_player3 &&
-                        score_player1 !== score_player4 &&
-                        score_player2 !== score_player3 &&
-                        score_player2 !== score_player4 &&
-                        score_player3 !== score_player4) {
-                    console.log("jdfs");
-                    winner = Math.max(parseInt(score_player1), parseInt(score_player2), parseInt(score_player3), parseInt(score_player4));
-                } else {
-                    console.log("jdfsÏèïðòï");
-                    return true;
+                if (players === 2) {
+                    number_score_of_the_winner = Math.max(parseInt(score_player1), parseInt(score_player2));
+                }
+                if (players === 3) {
+                    number_score_of_the_winner = Math.max(parseInt(score_player1), parseInt(score_player2), parseInt(score_player3));
+                }
+                if (players === 4) {
+                    number_score_of_the_winner = Math.max(parseInt(score_player1), parseInt(score_player2), parseInt(score_player3), parseInt(score_player4));
+                }
+                if (number_score_of_the_winner === score_player1) {
+                    how_much_winners = parseInt(how_much_winners) + 1;
+                }
+                if (number_score_of_the_winner === score_player2) {
+                    how_much_winners = parseInt(how_much_winners) + 1;
+                }
+                if (number_score_of_the_winner === score_player3) {
+                    how_much_winners = parseInt(how_much_winners) + 1;
+                }
+                if (number_score_of_the_winner === score_player4) {
+                    how_much_winners = parseInt(how_much_winners) + 1;
                 }
             }
-
             function win_window() {
                 for (var i = 1; i <= 4; i++) {
                     document.getElementById("control_of_the_player" + i).style = 'display: none';
