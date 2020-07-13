@@ -227,7 +227,7 @@
                 var score_player2 = document.getElementById("score_player2").innerHTML;
                 var score_player3 = document.getElementById("score_player3").innerHTML;
                 var score_player4 = document.getElementById("score_player4").innerHTML;
-                    console.log("j");
+                console.log("j");
                 if (score_player1 !== score_player2 &&
                         score_player1 !== score_player3 &&
                         score_player1 !== score_player4 &&
@@ -235,9 +235,8 @@
                         score_player2 !== score_player4 &&
                         score_player3 !== score_player4) {
                     console.log("jdfs");
-                    winner = Math.max(parseInt(score_player1),parseInt(score_player2),parseInt(score_player3),parseInt(score_player4));
-                }
-                else {
+                    winner = Math.max(parseInt(score_player1), parseInt(score_player2), parseInt(score_player3), parseInt(score_player4));
+                } else {
                     console.log("jdfsÏèïðòï");
                     return true;
                 }
@@ -263,8 +262,8 @@
 
 
                 if (mode_of_the_max_number === "by time") {
-                        game_win = true;
-                        is_there_a_winner();
+                    game_win = true;
+                    is_there_a_winner();
                 }
             }
             function add_a_chooser_of_max_score(for_start_game) {
