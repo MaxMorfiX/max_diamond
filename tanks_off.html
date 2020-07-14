@@ -183,6 +183,8 @@
             var max_score = 20;
             var mode_of_the_max_number = "by max score";
             var winner = "player";
+            var number_score_of_the_winner = 0;
+
 
             var key_mapping = {
                 191: {player_name: 'player1', action: 'bullet'},
@@ -227,18 +229,12 @@
                 var score_player2 = document.getElementById("score_player2").innerHTML;
                 var score_player3 = document.getElementById("score_player3").innerHTML;
                 var score_player4 = document.getElementById("score_player4").innerHTML;
-                var number_score_of_the_winner = 0;
+                number_score_of_the_winner = 0;
                 var how_much_winners = 0;
                 console.log("j");
-                if (players === 2) {
-                    number_score_of_the_winner = Math.max(parseInt(score_player1), parseInt(score_player2));
-                }
-                if (players === 3) {
-                    number_score_of_the_winner = Math.max(parseInt(score_player1), parseInt(score_player2), parseInt(score_player3));
-                }
-                if (players === 4) {
-                    number_score_of_the_winner = Math.max(parseInt(score_player1), parseInt(score_player2), parseInt(score_player3), parseInt(score_player4));
-                }
+
+                number_score_of_the_winner = Math.max(parseInt(score_player1), parseInt(score_player2), parseInt(score_player3), parseInt(score_player4));
+
                 if (number_score_of_the_winner === score_player1) {
                     how_much_winners = parseInt(how_much_winners) + 1;
                 }
@@ -250,6 +246,11 @@
                 }
                 if (number_score_of_the_winner === score_player4) {
                     how_much_winners = parseInt(how_much_winners) + 1;
+                }
+                if (how_much_winners >= 2) {
+                    game_win = true;
+                } else {
+                    game_win = false;
                 }
             }
             function win_window() {
@@ -264,16 +265,45 @@
                 if (mode_of_the_max_number === "by max score") {
                     game_win = true;
                     var player_name = tanks[winner].name;
-                    document.getElementById("win_window").innerHTML = player_name + '<br> WIN!!!';
-                    document.getElementById("win_window").style = 'display: block';
-                }
+                    for (var i = 1; i <= 4; i++) {
+                        document.getElementById("control_of_the_player" + i).style = 'display: none';
+                    }
 
 
 
 
-                if (mode_of_the_max_number === "by time") {
-                    game_win = true;
-                    is_there_a_winner();
+                    if (mode_of_the_max_number === "by time") {
+                        is_there_a_winner();
+                        check_game_win();
+                        function check_game_win() {
+                            if (game_win === true) {
+                                document.getElementById("field").style = 'display: none';
+                                var player_name = "";
+                                var score_player1 = document.getElementById("score_player1").innerHTML;
+                                var score_player2 = document.getElementById("score_player2").innerHTML;
+                                var score_player3 = document.getElementById("score_player3").innerHTML;
+                                var score_player4 = document.getElementById("score_player4").innerHTML;
+                                if (number_score_of_the_winner === parseInt(score_player1)) {
+                                    player_name = "PLAYER 1";
+                                }
+                                if (number_score_of_the_winner === parseInt(score_player2)) {
+                                    player_name = "PLAYER 2";
+                                }
+                                if (number_score_of_the_winner === parseInt(score_player3)) {
+                                    player_name = "PLAYER 3";
+                                }
+                                if (number_score_of_the_winner === parseInt(score_player4)) {
+                                    player_name = "PLAYER 4";
+                                }
+                                document.getElementById("win_window").innerHTML = player_name + '<br> WIN!!!';
+                                document.getElementById("win_window").style = 'display: block';
+                            }
+                        }
+                        if (game_win === false) {
+                            alert("a new 5 seconds!");
+                            setTimeout(check_game_win, 5000);
+                        }
+                    }
                 }
             }
             function add_a_chooser_of_max_score(for_start_game) {
