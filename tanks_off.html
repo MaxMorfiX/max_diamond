@@ -231,7 +231,6 @@
                 var score_player4 = document.getElementById("score_player4").innerHTML;
                 number_score_of_the_winner = 0;
                 var how_much_winners = 0;
-                console.log("j");
 
                 number_score_of_the_winner = Math.max(parseInt(score_player1), parseInt(score_player2), parseInt(score_player3), parseInt(score_player4));
 
@@ -248,16 +247,15 @@
                     how_much_winners = parseInt(how_much_winners) + 1;
                 }
                 if (how_much_winners >= 2) {
-                    game_win = true;
-                } else {
                     game_win = false;
+                } else {
+                    game_win = true;
                 }
             }
             function win_window() {
                 for (var i = 1; i <= 4; i++) {
                     document.getElementById("control_of_the_player" + i).style = 'display: none';
                 }
-                document.getElementById("field").style = 'display: none';
 
 
 
@@ -268,47 +266,47 @@
                     for (var i = 1; i <= 4; i++) {
                         document.getElementById("control_of_the_player" + i).style = 'display: none';
                     }
+                }
 
 
 
 
-                    if (mode_of_the_max_number === "by time") {
+                if (mode_of_the_max_number === "by time") {
+                    check_game_win();
+                    function check_game_win() {
                         is_there_a_winner();
-                        check_game_win();
-                        function check_game_win() {
-                            if (game_win === true) {
-                                console.log("0");
-                                document.getElementById("field").style = 'display: none';
-                                var player_name = "";
-                                var score_player1 = document.getElementById("score_player1").innerHTML;
-                                var score_player2 = document.getElementById("score_player2").innerHTML;
-                                var score_player3 = document.getElementById("score_player3").innerHTML;
-                                var score_player4 = document.getElementById("score_player4").innerHTML;
-                                if (number_score_of_the_winner === parseInt(score_player1)) {
-                                    console.log("1");
-                                    player_name = "PLAYER 1";
-                                }
-                                if (number_score_of_the_winner === parseInt(score_player2)) {
-                                    console.log("2");
-                                    player_name = "PLAYER 2";
-                                }
-                                if (number_score_of_the_winner === parseInt(score_player3)) {
-                                    console.log("3");
-                                    player_name = "PLAYER 3";
-                                }
-                                if (number_score_of_the_winner === parseInt(score_player4)) {
-                                    console.log("4");
-                                    player_name = "PLAYER 4";
-                                }
-                                console.log("8989898609");
-                                document.getElementById("win_window").innerHTML = player_name + '<br> WIN!!!';
-                                document.getElementById("win_window").style = 'display: block';
+                        if (game_win === true) {
+                            console.log("IF game win is true");
+                            document.getElementById("field").style = 'display: none';
+                            var player_name = "";
+                            var score_player1 = document.getElementById("score_player1").innerHTML;
+                            var score_player2 = document.getElementById("score_player2").innerHTML;
+                            var score_player3 = document.getElementById("score_player3").innerHTML;
+                            var score_player4 = document.getElementById("score_player4").innerHTML;
+                            if (number_score_of_the_winner === parseInt(score_player1)) {
+                                console.log("1");
+                                player_name = "PLAYER 1";
                             }
+                            if (number_score_of_the_winner === parseInt(score_player2)) {
+                                console.log("2");
+                                player_name = "PLAYER 2";
+                            }
+                            if (number_score_of_the_winner === parseInt(score_player3)) {
+                                console.log("3");
+                                player_name = "PLAYER 3";
+                            }
+                            if (number_score_of_the_winner === parseInt(score_player4)) {
+                                console.log("4");
+                                player_name = "PLAYER 4";
+                            }
+                            console.log("8989898609");
+                            document.getElementById("win_window").innerHTML = player_name + '<br> WIN!!!';
+                            document.getElementById("win_window").style = 'display: block';
+                        } else {
+//                            alert("a new 5 seconds!");
+                            console.log("IF game win is false");
+                            setTimeout(check_game_win, 20000);
                         }
-                    }
-                    if (game_win === false) {
-                        alert("a new 5 seconds!");
-                        setTimeout(check_game_win, 5000);
                     }
                 }
             }
